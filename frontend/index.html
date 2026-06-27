@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HXL Ontology Tagger</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>HumanitarianLink</title><title>HXL Ontology Tagger</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -698,17 +699,20 @@ function getApiHeaders(extra={}){
 }
 function openModal(){
   const saved=localStorage.getItem('hl_api_key')||'';
-  document.getElementById("akin").value=saved;
+  const input=document.getElementById("akin");
+  if(input)input.value=saved;
   document.getElementById("modal").classList.add("open");
 }
 function closeModal(){document.getElementById("modal").classList.remove("open")}
-async function saveKey(){
-  const k=document.getElementById("akin").value.trim();
-  if(!k)return;
+function saveKey(){
+  const input=document.getElementById("akin");
+  if(!input)return;
+  const k=input.value.trim();
+  if(!k){alert("Please paste your API key first.");return;}
   localStorage.setItem('hl_api_key',k);
   checkStatus();
   closeModal();
-  ss("API key saved.");
+  alert("API key saved! You can now use AI features.");
 }
 function setTab(t,btn){document.querySelectorAll(".tb").forEach(b=>b.classList.remove("active"));btn.classList.add("active");["tag","serialize","query","checks","help"].forEach(x=>{const el=document.getElementById("tab-"+x);if(el)el.style.display=x===t?"flex":"none"})}
 function renderProps(){const q=document.getElementById("search").value.toLowerCase();const c=document.getElementById("prop-list");c.innerHTML="";Object.entries(ONT).forEach(([dom,props])=>{const f=q?props.filter(p=>p.label.toLowerCase().includes(q)||p.hxl.includes(q)):props;if(!f.length)return;const col=DC[dom]||"#888";const open=EXP[dom]!==false;const g=document.createElement("div");const h=document.createElement("div");h.className="dh";h.innerHTML=`<div class="dd" style="background:${col}"></div><span class="dn">${dom}</span><span class="dc">${f.length}</span>`;h.onclick=()=>{EXP[dom]=open?false:true;renderProps()};g.appendChild(h);if(open||q){f.forEach(prop=>{const p={...prop,domain:dom};const i=document.createElement("div");i.className="pi"+(SEL?.uri===prop.uri?" sel":"");i.style.borderLeftColor=col;i.innerHTML=`<div class="pl">${prop.label}</div><div class="ph">${prop.hxl}</div>`;i.onclick=()=>{SEL=p;document.getElementById("sel-bar").style.display="block";document.getElementById("seln").textContent=prop.label;ss(`"${prop.label}" selected — click a column`);renderProps()};i.draggable=true;i.addEventListener("dragstart",()=>SEL=p);g.appendChild(i)})}c.appendChild(g)})}
