@@ -1,0 +1,3178 @@
+@prefix : <http://example.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gufo: <http://purl.org/nemo/gufo#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://example.com#> .
+
+<https://ontology.humanitariandata.org/hxl-ontology> rdf:type owl:Ontology ;
+                                                      owl:imports gufo: .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  https://hxlstandard.org/ns/#HXL
+<https://hxlstandard.org/ns/#HXL> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AnalyzedBy
+:AnalyzedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :Evaluator ;
+            rdfs:range :Respondee .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#GetsAid
+:GetsAid rdf:type owl:ObjectProperty ;
+         rdfs:domain :SupportingOrganization ;
+         rdfs:range :Beneficiary .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HasPromisedItems
+:HasPromisedItems rdf:type owl:ObjectProperty ;
+                  rdfs:domain :BenefitContract ;
+                  rdfs:range :PromisedAidItems .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Has_11
+:Has_11 rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf gufo:categorizes ;
+        rdfs:domain :Programmer ;
+        rdfs:range :ImplementingPartner .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ReportedBy
+:ReportedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :DataCollector ;
+            rdfs:range :Affected .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#hasEmployee
+:hasEmployee rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf gufo:hasAssociatedQualityValueType ;
+             rdfs:domain :Employer ;
+             rdfs:range :Employee .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedAdolescents
+:AbductedAdolescents rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :ImpactReport ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "AbductedAdolescents"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#affected +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedAdults
+:AbductedAdults rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "AbductedAdults"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedChildren
+:AbductedChildren rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "AbductedChildren"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#affected +abducted +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedElderly
+:AbductedElderly rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AbductedElderly"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +abducted +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedFemaleAdults
+:AbductedFemaleAdults rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :ImpactReport ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "AbductedFemaleAdults"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#affected +abducted +f +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedFemaleChildren
+:AbductedFemaleChildren rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :ImpactReport ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "AbductedFemaleChildren"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#affected +abducted +f +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedFemales
+:AbductedFemales rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AbductedFemales"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +abducted +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedInfants
+:AbductedInfants rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AbductedInfants"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +abducted +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedMaleAdults
+:AbductedMaleAdults rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :ImpactReport ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "AbductedMaleAdults"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#affected +abducted +m +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedMaleChildren
+:AbductedMaleChildren rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :ImpactReport ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "AbductedMaleChildren"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#affected +abducted +m +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedMales
+:AbductedMales rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "AbductedMales"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +abducted +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AbductedTotal
+:AbductedTotal rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "AbductedTotal"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +abducted" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AccessStatus
+:AccessStatus rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :OperationLocation ;
+              rdfs:range xsd:string ;
+              rdfs:label "AccessStatus"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#access +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Admin1Code
+:Admin1Code rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :Location ;
+            rdfs:range xsd:string ;
+            rdfs:label "Admin1Code"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#adm1 +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Admin1Name
+:Admin1Name rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :Location ;
+            rdfs:range xsd:string ;
+            rdfs:label "Admin1Name"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#adm1 +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Admin2Code
+:Admin2Code rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :Location ;
+            rdfs:range xsd:string ;
+            rdfs:label "Admin2Code"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#adm2 +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Admin2Name
+:Admin2Name rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :Location ;
+            rdfs:range xsd:string ;
+            rdfs:label "Admin2Name"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#adm2 +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedAdolescents
+:AffectedAdolescents rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :ImpactReport ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "AffectedAdolescents"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#affected +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedAdults
+:AffectedAdults rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "AffectedAdults"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedChildren
+:AffectedChildren rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "AffectedChildren"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#affected +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedCode
+:AffectedCode rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:string ;
+              rdfs:label "AffectedCode"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedElderly
+:AffectedElderly rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AffectedElderly"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedFemaleAdults
+:AffectedFemaleAdults rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :ImpactReport ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "AffectedFemaleAdults"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#affected +f +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedFemaleChildren
+:AffectedFemaleChildren rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :ImpactReport ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "AffectedFemaleChildren"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#affected +f +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedFemaleElderly
+:AffectedFemaleElderly rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf gufo:hasQualityValue ;
+                       rdfs:domain :ImpactReport ;
+                       rdfs:range xsd:int ;
+                       rdfs:label "AffectedFemaleElderly"@en ;
+                       <https://hxlstandard.org/ns/#HXL> "#affected +f +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedFemales
+:AffectedFemales rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AffectedFemales"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedHouseholds
+:AffectedHouseholds rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :ImpactReport ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "AffectedHouseholds"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#affected +hh" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedInfants
+:AffectedInfants rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "AffectedInfants"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedMaleAdults
+:AffectedMaleAdults rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :ImpactReport ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "AffectedMaleAdults"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#affected +m +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedMaleChildren
+:AffectedMaleChildren rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :ImpactReport ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "AffectedMaleChildren"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#affected +m +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedMaleElderly
+:AffectedMaleElderly rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :ImpactReport ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "AffectedMaleElderly"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#affected +m +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedMales
+:AffectedMales rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "AffectedMales"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedTotal
+:AffectedTotal rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "AffectedTotal"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ApplicationStatus
+:ApplicationStatus rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :NeedsAssessment ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "ApplicationStatus"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#respondee +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AreaCode
+:AreaCode rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Location ;
+          rdfs:range xsd:string ;
+          rdfs:label "AreaCode"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#area +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AreaName
+:AreaName rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Location ;
+          rdfs:range xsd:string ;
+          rdfs:label "AreaName"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#area +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AssessmentDate
+:AssessmentDate rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :NeedsAssessment ;
+                rdfs:range xsd:date ;
+                rdfs:label "AssessmentDate"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#needsAssessment +occured +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AssessmentID
+:AssessmentID rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :NeedsAssessment ;
+              rdfs:range xsd:string ;
+              rdfs:label "AssessmentID"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#needsAssessment +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryAdolescents
+:BeneficiaryAdolescents rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :BenefitContract ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "BeneficiaryAdolescents"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#beneficiary +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryChildren
+:BeneficiaryChildren rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :BenefitContract ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "BeneficiaryChildren"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#beneficiary +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryCode
+:BeneficiaryCode rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :BenefitContract ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "BeneficiaryCode"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#beneficiary +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryElderly
+:BeneficiaryElderly rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :BenefitContract ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "BeneficiaryElderly"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#beneficiary +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryEmail
+:BeneficiaryEmail rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :BenefitContract ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "BeneficiaryEmail"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#beneficiary +email" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryFemaleAdolescents
+:BeneficiaryFemaleAdolescents rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf gufo:hasQualityValue ;
+                              rdfs:domain :BenefitContract ;
+                              rdfs:range xsd:int ;
+                              rdfs:label "BeneficiaryFemaleAdolescents"@en ;
+                              <https://hxlstandard.org/ns/#HXL> "#beneficiary +f +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryFemaleAdults
+:BeneficiaryFemaleAdults rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf gufo:hasQualityValue ;
+                         rdfs:domain :BenefitContract ;
+                         rdfs:range xsd:int ;
+                         rdfs:label "BeneficiaryFemaleAdults"@en ;
+                         <https://hxlstandard.org/ns/#HXL> "#beneficiary +f +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryFemaleChildren
+:BeneficiaryFemaleChildren rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf gufo:hasQualityValue ;
+                           rdfs:domain :BenefitContract ;
+                           rdfs:range xsd:int ;
+                           rdfs:label "BeneficiaryFemaleChildren"@en ;
+                           <https://hxlstandard.org/ns/#HXL> "#beneficiary +f +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryFemaleElderly
+:BeneficiaryFemaleElderly rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf gufo:hasQualityValue ;
+                          rdfs:domain :BenefitContract ;
+                          rdfs:range xsd:int ;
+                          rdfs:label "BeneficiaryFemaleElderly"@en ;
+                          <https://hxlstandard.org/ns/#HXL> "#beneficiary +f +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryFemaleInfants
+:BeneficiaryFemaleInfants rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf gufo:hasQualityValue ;
+                          rdfs:domain :BenefitContract ;
+                          rdfs:range xsd:int ;
+                          rdfs:label "BeneficiaryFemaleInfants"@en ;
+                          <https://hxlstandard.org/ns/#HXL> "#beneficiary +f +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryGender
+:BeneficiaryGender rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :BenefitContract ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "BeneficiaryGender"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#beneficiary +gender" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryHousehold
+:BeneficiaryHousehold rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :BenefitContract ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "BeneficiaryHousehold"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#beneficiary +hh" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryInfants
+:BeneficiaryInfants rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :BenefitContract ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "BeneficiaryInfants"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#beneficiary +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryMaleAdolescents
+:BeneficiaryMaleAdolescents rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf gufo:hasQualityValue ;
+                            rdfs:domain :BenefitContract ;
+                            rdfs:range xsd:int ;
+                            rdfs:label "BeneficiaryMaleAdolescents"@en ;
+                            <https://hxlstandard.org/ns/#HXL> "#beneficiary +m +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryMaleAdults
+:BeneficiaryMaleAdults rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf gufo:hasQualityValue ;
+                       rdfs:domain :BenefitContract ;
+                       rdfs:range xsd:int ;
+                       rdfs:label "BeneficiaryMaleAdults"@en ;
+                       <https://hxlstandard.org/ns/#HXL> "#beneficiary +m +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryMaleChildren
+:BeneficiaryMaleChildren rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf gufo:hasQualityValue ;
+                         rdfs:domain :BenefitContract ;
+                         rdfs:range xsd:int ;
+                         rdfs:label "BeneficiaryMaleChildren"@en ;
+                         <https://hxlstandard.org/ns/#HXL> "#beneficiary +m +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryMaleElderly
+:BeneficiaryMaleElderly rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :BenefitContract ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "BeneficiaryMaleElderly"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#beneficiary +m +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryMaleInfants
+:BeneficiaryMaleInfants rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :BenefitContract ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "BeneficiaryMaleInfants"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#beneficiary +m +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryName
+:BeneficiaryName rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :BenefitContract ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "BeneficiaryName"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#beneficiary +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryPhone
+:BeneficiaryPhone rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :BenefitContract ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "BeneficiaryPhone"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#beneficiary +phone" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CityCode
+:CityCode rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Location ;
+          rdfs:range xsd:string ;
+          rdfs:label "CityCode"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#city +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CityName
+:CityName rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Location ;
+          rdfs:range xsd:string ;
+          rdfs:label "CityName"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#city +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Cluster
+:Cluster rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf gufo:hasQualityValue ;
+         rdfs:domain :SectorNeed ;
+         rdfs:range xsd:string ;
+         rdfs:label "Cluster"@en ;
+         <https://hxlstandard.org/ns/#HXL> "#cluster +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ContractEndDate
+:ContractEndDate rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :BenefitContract ;
+                 rdfs:range xsd:date ;
+                 rdfs:label "ContractEndDate"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#benefitContract +end +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ContractID
+:ContractID rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :BenefitContract ;
+            rdfs:range xsd:string ;
+            rdfs:label "ContractID"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#benefitContract +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ContractStartDate
+:ContractStartDate rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :BenefitContract ;
+                   rdfs:range xsd:date ;
+                   rdfs:label "ContractStartDate"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#benefitContract +start +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CountryCode
+:CountryCode rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :Location ;
+             rdfs:range xsd:string ;
+             rdfs:label "CountryCode"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#country +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CountryName
+:CountryName rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :Location ;
+             rdfs:range xsd:string ;
+             rdfs:label "CountryName"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#country +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CrisisCode
+:CrisisCode rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :ImpactReport ;
+            rdfs:range xsd:string ;
+            rdfs:label "CrisisCode"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#crisis +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CrisisName
+:CrisisName rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :ImpactReport ;
+            rdfs:range xsd:string ;
+            rdfs:label "CrisisName"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#crisis +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CrisisType
+:CrisisType rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :ImpactReport ;
+            rdfs:range xsd:string ;
+            rdfs:label "CrisisType"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#crisis +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Date
+:Date rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf gufo:hasQualityValue ;
+      rdfs:domain :Receipt ;
+      rdfs:range xsd:byte ;
+      rdfs:label "Date"@en ;
+      <https://hxlstandard.org/ns/#HXL> "#receipt +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Date_1
+:Date_1 rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf gufo:hasQualityValue ;
+        rdfs:domain :ImpactReport ;
+        rdfs:range xsd:date ;
+        rdfs:label "Date"@en ;
+        <https://hxlstandard.org/ns/#HXL> "#impactReport +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveredQuantity
+:DeliveredQuantity rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :DeliveryItem ;
+                   rdfs:range xsd:int ;
+                   rdfs:label "DeliveredQuantity"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#delivery +quantity" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryCode
+:DeliveryCode rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Delivery ;
+              rdfs:range xsd:string ;
+              rdfs:label "DeliveryCode"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#delivery +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryDate
+:DeliveryDate rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Delivery ;
+              rdfs:range xsd:date ;
+              rdfs:label "DeliveryDate"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#delivery +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryStatus
+:DeliveryStatus rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :Delivery ;
+                rdfs:range xsd:string ;
+                rdfs:label "DeliveryStatus"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#delivery +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedAdults
+:DisplacedAdults rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "DisplacedAdults"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +displaced +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedChildren
+:DisplacedChildren rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :ImpactReport ;
+                   rdfs:range xsd:int ;
+                   rdfs:label "DisplacedChildren"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#affected +displaced +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedElderly
+:DisplacedElderly rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "DisplacedElderly"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#affected +displaced +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedFemales
+:DisplacedFemales rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "DisplacedFemales"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#affected +displaced +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedMales
+:DisplacedMales rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "DisplacedMales"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +displaced +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DisplacedTotal
+:DisplacedTotal rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "DisplacedTotal"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +displaced" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributedQuantity
+:DistributedQuantity rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :DistributionItem ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "DistributedQuantity"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#distribution +q" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionCapacity
+:DistributionCapacity rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :DistributionPoint ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "DistributionCapacity"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#distribution +capacity" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionCode
+:DistributionCode rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :Distribution ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "DistributionCode"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#distribution +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionStatus
+:DistributionStatus rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :Distribution ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "DistributionStatus"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#distribution +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmployeeCode
+:EmployeeCode rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Employee ;
+              rdfs:range xsd:int ;
+              rdfs:label "EmployeeCode"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#employee +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmployeeCode_1
+:EmployeeCode_1 rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :EmployeeContract ;
+                rdfs:range xsd:string ;
+                rdfs:label "EmployeeCode"@en .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmployeeName
+:EmployeeName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Employee ;
+              rdfs:range xsd:string ;
+              rdfs:label "EmployeeName"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#employee +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmploymentType
+:EmploymentType rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :EmployeeContract ;
+                rdfs:range xsd:string ;
+                rdfs:label "EmploymentType"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#employee +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EndDate
+:EndDate rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf gufo:hasQualityValue ;
+         rdfs:domain :Distribution ;
+         rdfs:range xsd:date ;
+         rdfs:label "EndDate"@en ;
+         <https://hxlstandard.org/ns/#HXL> "#distribution +end +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HireDate
+:HireDate rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :EmployeeContract ;
+          rdfs:range xsd:date ;
+          rdfs:label "HireDate"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#employee +hire +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ImpactReportCode
+:ImpactReportCode rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "ImpactReportCode"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#impactReport +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InNeedTotal
+:InNeedTotal rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :ImpactReport ;
+             rdfs:range xsd:int ;
+             rdfs:label "InNeedTotal"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#affected +inneed" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Income
+:Income rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf gufo:hasQualityValue ;
+        rdfs:domain :NeedsAssessment ;
+        rdfs:range xsd:float ;
+        rdfs:label "Income"@en ;
+        <https://hxlstandard.org/ns/#HXL> "#respondee +income" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredAdolescents
+:InjuredAdolescents rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :ImpactReport ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "InjuredAdolescents"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#affected +injured +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredAdults
+:InjuredAdults rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "InjuredAdults"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +injured +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredChildren
+:InjuredChildren rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "InjuredChildren"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +injured +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredFemales
+:InjuredFemales rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "InjuredFemales"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +injured +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredInfants
+:InjuredInfants rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "InjuredInfants"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +injured +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredMales
+:InjuredMales rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:int ;
+              rdfs:label "InjuredMales"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +injured +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InjuredTotal
+:InjuredTotal rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:int ;
+              rdfs:label "InjuredTotal"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +injured" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InventoryCode
+:InventoryCode rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Inventory ;
+               rdfs:range xsd:string ;
+               rdfs:label "InventoryCode"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#inventory +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InventoryName
+:InventoryName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Inventory ;
+               rdfs:range xsd:string ;
+               rdfs:label "InventoryName"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#inventory +name" .
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StoredItemQuantity
+:StoredItemQuantity rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Inventory ;
+               rdfs:range xsd:string ;
+               rdfs:label "InventoryCode"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#inventory +quantity" .
+
+###  https://ontology.humanitariandata.org/hxl-ontology#InventoryStatus
+:InventoryStatus rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Inventory ;
+               rdfs:range xsd:string ;
+               rdfs:label "InventoryCode"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#inventory +status" .
+
+
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ItemCode
+:ItemCode rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :AidItem ;
+          rdfs:range xsd:string ;
+          rdfs:label "ItemCode"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#item +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ItemName
+:ItemName rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :AidItem ;
+          rdfs:range xsd:string ;
+          rdfs:label "ItemName"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#item +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ItemType
+:ItemType rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :AidItem ;
+          rdfs:range xsd:string ;
+          rdfs:label "ItemType"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#item +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#JobTitle
+:JobTitle rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :EmployeeContract ;
+          rdfs:range xsd:string ;
+          rdfs:label "JobTitle"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#employee +title" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledAdolescents
+:KilledAdolescents rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :ImpactReport ;
+                   rdfs:range xsd:int ;
+                   rdfs:label "KilledAdolescents"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#affected +killed +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledAdults
+:KilledAdults rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:int ;
+              rdfs:label "KilledAdults"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +killed +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledChildren
+:KilledChildren rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "KilledChildren"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +killed +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledElderly
+:KilledElderly rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "KilledElderly"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +killed +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledFemaleAdults
+:KilledFemaleAdults rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :ImpactReport ;
+                    rdfs:range xsd:int ;
+                    rdfs:label "KilledFemaleAdults"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#affected +killed +f +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledFemales
+:KilledFemales rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "KilledFemales"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +killed +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledInfants
+:KilledInfants rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "KilledInfants"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +killed +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledMaleAdults
+:KilledMaleAdults rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :ImpactReport ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "KilledMaleAdults"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#affected +killed +m +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledMales
+:KilledMales rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :ImpactReport ;
+             rdfs:range xsd:int ;
+             rdfs:label "KilledMales"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#affected +killed +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#KilledTotal
+:KilledTotal rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :ImpactReport ;
+             rdfs:range xsd:int ;
+             rdfs:label "KilledTotal"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#affected +killed" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Latitude
+:Latitude rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Location ;
+          rdfs:range xsd:float ;
+          rdfs:label "Latitude"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#geo +lat" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#LocationCode
+:LocationCode rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:label "LocationCode"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#location +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#LocationName
+:LocationName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:label "LocationName"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#location +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#LocationType
+:LocationType rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :Location ;
+              rdfs:range xsd:string ;
+              rdfs:label "LocationType"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#location +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Longitude
+:Longitude rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf gufo:hasQualityValue ;
+           rdfs:domain :Location ;
+           rdfs:range xsd:float ;
+           rdfs:label "Longitude"@en ;
+           <https://hxlstandard.org/ns/#HXL> "#geo +long" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ModeOfTransport
+:ModeOfTransport rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :Delivery ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "ModeOfTransport"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#delivery +channel" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Name
+:Name rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf gufo:hasQualityValue ;
+      rdfs:domain :SectorNeed ;
+      rdfs:range xsd:string ;
+      rdfs:label "Name"@en ;
+      <https://hxlstandard.org/ns/#HXL> "#sector +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NeedCode
+:NeedCode rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :NeedsAssessment ;
+          rdfs:range xsd:string ;
+          rdfs:label "NeedCode"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#respondee +need +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NeedName
+:NeedName rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :NeedsAssessment ;
+          rdfs:range xsd:string ;
+          rdfs:label "NeedName"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#respondee +need +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NeedType
+:NeedType rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :NeedsAssessment ;
+          rdfs:range xsd:string ;
+          rdfs:label "NeedType"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#respondee +need +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OrgCode
+:OrgCode rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf gufo:hasQualityValue ;
+         rdfs:domain :Organization ;
+         rdfs:range xsd:string ;
+         rdfs:label "OrgCode"@en ;
+         <https://hxlstandard.org/ns/#HXL> "#org +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OrgEmail
+:OrgEmail rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Organization ;
+          rdfs:range xsd:string ;
+          rdfs:label "OrgEmail"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#org +email" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OrgName
+:OrgName rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf gufo:hasQualityValue ;
+         rdfs:domain :Organization ;
+         rdfs:range xsd:string ;
+         rdfs:label "OrgName"@en ;
+         <https://hxlstandard.org/ns/#HXL> "#org +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OrgPhone
+:OrgPhone rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :Organization ;
+          rdfs:range xsd:string ;
+          rdfs:label "OrgPhone"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#org +phone" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OrgSector
+:OrgSector rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf gufo:hasQualityValue ;
+           rdfs:domain :Organization ;
+           rdfs:range xsd:string ;
+           rdfs:label "OrgSector"@en ;
+           <https://hxlstandard.org/ns/#HXL> "#org +sector" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ProjectCode
+:ProjectCode rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :Project ;
+             rdfs:range xsd:string ;
+             rdfs:label "ProjectCode"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#project +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ProjectName
+:ProjectName rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :Project ;
+             rdfs:range xsd:string ;
+             rdfs:label "ProjectName"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#project +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ProjectSector
+:ProjectSector rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Project ;
+               rdfs:range xsd:string ;
+               rdfs:label "ProjectSector"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#project +sector" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiryNumber
+:BeneficiryNumber rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Project ;
+               rdfs:range xsd:string ;
+               rdfs:label "BeneficiryNumber"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#beneficiary +total" .
+
+###  https://ontology.humanitariandata.org/hxl-ontology#TargetedBNF
+:TargetedBNF rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Project ;
+               rdfs:range xsd:string ;
+               rdfs:label "TargetedBNF"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#beneficiary +targeted" .
+
+
+
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Quantity
+:Quantity rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :AidItem ;
+          rdfs:range xsd:int ;
+          rdfs:label "Quantity"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#item +q" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ReceiptCode
+:ReceiptCode rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf gufo:hasQualityValue ;
+             rdfs:domain :Receipt ;
+             rdfs:range xsd:string ;
+             rdfs:label "ReceiptCode"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#receipt +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeAdults
+:RefugeeAdults rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :ImpactReport ;
+               rdfs:range xsd:int ;
+               rdfs:label "RefugeeAdults"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#affected +refugee +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeChildren
+:RefugeeChildren rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :ImpactReport ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "RefugeeChildren"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#affected +refugee +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeElderly
+:RefugeeElderly rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "RefugeeElderly"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +refugee +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeFemales
+:RefugeeFemales rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "RefugeeFemales"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +refugee +f" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeInfants
+:RefugeeInfants rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :ImpactReport ;
+                rdfs:range xsd:int ;
+                rdfs:label "RefugeeInfants"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#affected +refugee +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeMales
+:RefugeeMales rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:int ;
+              rdfs:label "RefugeeMales"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +refugee +m" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RefugeeTotal
+:RefugeeTotal rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf gufo:hasQualityValue ;
+              rdfs:domain :ImpactReport ;
+              rdfs:range xsd:int ;
+              rdfs:label "RefugeeTotal"@en ;
+              <https://hxlstandard.org/ns/#HXL> "#affected +refugee" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RegionName
+:RegionName rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf gufo:hasQualityValue ;
+            rdfs:domain :Location ;
+            rdfs:range xsd:string ;
+            rdfs:label "RegionName"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#region +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeAdolescents
+:RespondeeAdolescents rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :NeedsAssessment ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "RespondeeAdolescents"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#respondee +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeAdults
+:RespondeeAdults rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :NeedsAssessment ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "RespondeeAdults"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#respondee +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeCode
+:RespondeeCode rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :NeedsAssessment ;
+               rdfs:range xsd:string ;
+               rdfs:label "RespondeeCode"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#respondee +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeDisability
+:RespondeeDisability rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :NeedsAssessment ;
+                     rdfs:range xsd:string ;
+                     rdfs:label "RespondeeDisability"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#respondee +disability" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeElderly
+:RespondeeElderly rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :NeedsAssessment ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "RespondeeElderly"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#respondee +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeEmail
+:RespondeeEmail rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :NeedsAssessment ;
+                rdfs:range xsd:string ;
+                rdfs:label "RespondeeEmail"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#respondee +email" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeFemaleAdolescents
+:RespondeeFemaleAdolescents rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf gufo:hasQualityValue ;
+                            rdfs:domain :NeedsAssessment ;
+                            rdfs:range xsd:int ;
+                            rdfs:label "RespondeeFemaleAdolescents"@en ;
+                            <https://hxlstandard.org/ns/#HXL> "#respondee +f +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeFemaleAdults
+:RespondeeFemaleAdults rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf gufo:hasQualityValue ;
+                       rdfs:domain :NeedsAssessment ;
+                       rdfs:range xsd:int ;
+                       rdfs:label "RespondeeFemaleAdults"@en ;
+                       <https://hxlstandard.org/ns/#HXL> "#respondee +f +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeFemaleChildren
+:RespondeeFemaleChildren rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf gufo:hasQualityValue ;
+                         rdfs:domain :NeedsAssessment ;
+                         rdfs:range xsd:int ;
+                         rdfs:label "RespondeeFemaleChildren"@en ;
+                         <https://hxlstandard.org/ns/#HXL> "#respondee +f +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeFemaleElderly
+:RespondeeFemaleElderly rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :NeedsAssessment ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "RespondeeFemaleElderly"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#respondee +f +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeFemaleInfants
+:RespondeeFemaleInfants rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :NeedsAssessment ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "RespondeeFemaleInfants"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#respondee +f +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeGender
+:RespondeeGender rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :NeedsAssessment ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "RespondeeGender"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#respondee +gender" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeHouseholdSize
+:RespondeeHouseholdSize rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf gufo:hasQualityValue ;
+                        rdfs:domain :NeedsAssessment ;
+                        rdfs:range xsd:int ;
+                        rdfs:label "RespondeeHouseholdSize"@en ;
+                        <https://hxlstandard.org/ns/#HXL> "#respondee +hh" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeInfants
+:RespondeeInfants rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf gufo:hasQualityValue ;
+                  rdfs:domain :NeedsAssessment ;
+                  rdfs:range xsd:int ;
+                  rdfs:label "RespondeeInfants"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#respondee +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeMaleAdolescents
+:RespondeeMaleAdolescents rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf gufo:hasQualityValue ;
+                          rdfs:domain :NeedsAssessment ;
+                          rdfs:range xsd:int ;
+                          rdfs:label "RespondeeMaleAdolescents"@en ;
+                          <https://hxlstandard.org/ns/#HXL> "#respondee +m +adolescents" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeMaleAdults
+:RespondeeMaleAdults rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf gufo:hasQualityValue ;
+                     rdfs:domain :NeedsAssessment ;
+                     rdfs:range xsd:int ;
+                     rdfs:label "RespondeeMaleAdults"@en ;
+                     <https://hxlstandard.org/ns/#HXL> "#respondee +m +adults" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeMaleChildren
+:RespondeeMaleChildren rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf gufo:hasQualityValue ;
+                       rdfs:domain :NeedsAssessment ;
+                       rdfs:range xsd:int ;
+                       rdfs:label "RespondeeMaleChildren"@en ;
+                       <https://hxlstandard.org/ns/#HXL> "#respondee +m +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeMaleElderly
+:RespondeeMaleElderly rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :NeedsAssessment ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "RespondeeMaleElderly"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#respondee +m +elderly" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeMaleInfants
+:RespondeeMaleInfants rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf gufo:hasQualityValue ;
+                      rdfs:domain :NeedsAssessment ;
+                      rdfs:range xsd:int ;
+                      rdfs:label "RespondeeMaleInfants"@en ;
+                      <https://hxlstandard.org/ns/#HXL> "#respondee +m +infants" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeName
+:RespondeeName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :NeedsAssessment ;
+               rdfs:range xsd:string ;
+               rdfs:label "RespondeeName"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#respondee +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeePhone
+:RespondeePhone rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :NeedsAssessment ;
+                rdfs:range xsd:string ;
+                rdfs:label "RespondeePhone"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#respondee +phone" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Respondeechildren
+:Respondeechildren rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf gufo:hasQualityValue ;
+                   rdfs:domain :NeedsAssessment ;
+                   rdfs:range xsd:int ;
+                   rdfs:label "Respondeechildren"@en ;
+                   <https://hxlstandard.org/ns/#HXL> "#respondee +children" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SeverityLevel
+:SeverityLevel rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :NeedsAssessment ;
+               rdfs:range xsd:string ;
+               rdfs:label "SeverityLevel"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#respondee +severity" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StartDate
+:StartDate rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf gufo:hasQualityValue ;
+           rdfs:domain :Distribution ;
+           rdfs:range xsd:date ;
+           rdfs:label "StartDate"@en ;
+           <https://hxlstandard.org/ns/#HXL> "#distribution +start +date" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StateCode
+:StateCode rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf gufo:hasQualityValue ;
+           rdfs:domain :Location ;
+           rdfs:range xsd:string ;
+           rdfs:label "StateCode"@en ;
+           <https://hxlstandard.org/ns/#HXL> "#state +code" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StateName
+:StateName rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf gufo:hasQualityValue ;
+           rdfs:domain :Location ;
+           rdfs:range xsd:string ;
+           rdfs:label "StateName"@en ;
+           <https://hxlstandard.org/ns/#HXL> "#state +name" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Status
+:Status rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf gufo:hasQualityValue ;
+        rdfs:domain :Employee ;
+        rdfs:range xsd:string ;
+        rdfs:label "Status"@en ;
+        <https://hxlstandard.org/ns/#HXL> "#employee +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StorageCapacity
+:StorageCapacity rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf gufo:hasQualityValue ;
+                 rdfs:domain :Warehouse ;
+                 rdfs:range xsd:int ;
+                 rdfs:label "StorageCapacity"@en ;
+                 <https://hxlstandard.org/ns/#HXL> "#storage +capacity" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StorageStatus
+:StorageStatus rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf gufo:hasQualityValue ;
+               rdfs:domain :Inventory ;
+               rdfs:range xsd:int ;
+               rdfs:label "StorageStatus"@en ;
+               <https://hxlstandard.org/ns/#HXL> "#storage +status" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Targeted
+:Targeted rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf gufo:hasQualityValue ;
+          rdfs:domain :ImpactReport ;
+          rdfs:range xsd:int ;
+          rdfs:label "Targeted"@en ;
+          <https://hxlstandard.org/ns/#HXL> "#affected +targeted" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#TargetedNumber
+:TargetedNumber rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf gufo:hasQualityValue ;
+                rdfs:domain :Project ;
+                rdfs:range xsd:int ;
+                rdfs:label "TargetedNumber"@en ;
+                <https://hxlstandard.org/ns/#HXL> "#project +targeted" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Type
+:Type rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf gufo:hasQualityValue ;
+      rdfs:domain :Organization ;
+      rdfs:range xsd:string ;
+      rdfs:label "Type"@en ;
+      <https://hxlstandard.org/ns/#HXL> "#org +type" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Unit
+:Unit rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf gufo:hasQualityValue ;
+      rdfs:domain :AidItem ;
+      rdfs:range xsd:string ;
+      rdfs:label "Unit"@en ;
+      <https://hxlstandard.org/ns/#HXL> "#item +unit" .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#VulnerabilityScore
+:VulnerabilityScore rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf gufo:hasQualityValue ;
+                    rdfs:domain :NeedsAssessment ;
+                    rdfs:range xsd:float;
+                    rdfs:label "VulnerabilityScore"@en ;
+                    <https://hxlstandard.org/ns/#HXL> "#respondee +score" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AcceptedApplication
+:AcceptedApplication rdf:type owl:Class ;
+                     rdfs:subClassOf :NeedsAssessment .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Affected
+:Affected rdf:type owl:Class ;
+          rdfs:subClassOf :Population ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf gufo:mediates
+                                           ] ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :ImpactReport
+                          ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedLocation
+:AffectedLocation rdf:type owl:Class ;
+                  rdfs:subClassOf :Area ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty gufo:mediates ;
+                                    owl:someValuesFrom :ImpactReport
+                                  ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AidItem
+:AidItem rdf:type owl:Class ;
+         rdfs:subClassOf gufo:FunctionalComplex ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                          ] ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :SectorNeed
+                         ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ApplicationBeingProcessed
+:ApplicationBeingProcessed rdf:type owl:Class ;
+                           rdfs:subClassOf :NeedsAssessment .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Area
+:Area rdf:type owl:Class ;
+      rdfs:subClassOf :Location .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Beneficiary
+:Beneficiary rdf:type owl:Class ;
+             rdfs:subClassOf :Person ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty [ owl:inverseOf gufo:mediates
+                                              ] ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :BenefitContract
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty [ owl:inverseOf gufo:mediates
+                                              ] ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Distribution
+                             ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryLocation
+:BeneficiaryLocation rdf:type owl:Class ;
+                     rdfs:subClassOf :Area ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty gufo:mediates ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :BenefitContract
+                                     ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryReceipt
+:BeneficiaryReceipt rdf:type owl:Class ;
+                    rdfs:subClassOf :Receipt ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty [ owl:inverseOf gufo:historicallyDependsOn
+                                                     ] ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :Distribution
+                                    ] ;
+                    owl:disjointWith :DeliveryReceipt .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BenefitContract
+:BenefitContract rdf:type owl:Class ;
+                 rdfs:subClassOf gufo:Relator ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gufo:mediates ;
+                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Beneficiary
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gufo:mediates ;
+                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :SupportingOrganization
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                  ] ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :BeneficiaryLocation
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                  ] ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Project
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                  ] ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :SectorNeed
+                                 ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CashDistributionPoint
+:CashDistributionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :DistributionPoint .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CashVoucher
+:CashVoucher rdf:type owl:Class ;
+             rdfs:subClassOf :AidItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DataCollector
+:DataCollector rdf:type owl:Class ;
+               rdfs:subClassOf :ImplementingPartner ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty [ owl:inverseOf gufo:mediates
+                                                ] ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :ImpactReport
+                               ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Delivery
+:Delivery rdf:type owl:Class ;
+          rdfs:subClassOf gufo:Relator ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:mediates ;
+                            owl:someValuesFrom :DeliveryItem
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                           ] ;
+                            owl:someValuesFrom :SectorNeed
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf gufo:mediates
+                                           ] ;
+                            owl:someValuesFrom :ReceivingImplementingPartner
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:historicallyDependsOn ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :DeliveryReceipt
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:inheresIn ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :SectorNeed
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:mediates ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :DeliveryLocation
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:mediates ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Project
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:mediates ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Supplier
+                          ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryItem
+:DeliveryItem rdf:type owl:Class ;
+              rdfs:subClassOf :AidItem ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf gufo:mediates
+                                               ] ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Delivery
+                              ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryLocation
+:DeliveryLocation rdf:type owl:Class ;
+                  rdfs:subClassOf :Location ,
+                                  :OperationLocation ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf gufo:mediates
+                                                   ] ;
+                                    owl:someValuesFrom :Delivery
+                                  ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryReceipt
+:DeliveryReceipt rdf:type owl:Class ;
+                 rdfs:subClassOf :Receipt ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:historicallyDependsOn
+                                                  ] ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Delivery
+                                 ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributingImplementingPartner
+:DistributingImplementingPartner rdf:type owl:Class ;
+                                 rdfs:subClassOf :ImplementingPartner ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                                  ] ;
+                                                   owl:someValuesFrom :Distribution
+                                                 ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Distribution
+:Distribution rdf:type owl:Class ;
+              rdfs:subClassOf gufo:Relator ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:historicallyDependsOn ;
+                                owl:someValuesFrom :BeneficiaryReceipt
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:someValuesFrom :Beneficiary
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:someValuesFrom :DistributionItem
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:someValuesFrom :DistributionLocation
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf gufo:mediates
+                                               ] ;
+                                owl:someValuesFrom :Project
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:inheresIn ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :SectorNeed
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :DistributingImplementingPartner
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf gufo:mediates
+                                               ] ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :DistributionLocation
+                              ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionItem
+:DistributionItem rdf:type owl:Class ;
+                  rdfs:subClassOf :AidItem ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf gufo:mediates
+                                                   ] ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Distribution
+                                  ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionLocation
+:DistributionLocation rdf:type owl:Class ;
+                      rdfs:subClassOf :DistributionPoint ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty gufo:mediates ;
+                                        owl:someValuesFrom :Distribution
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf gufo:mediates
+                                                       ] ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :Distribution
+                                      ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionPoint
+:DistributionPoint rdf:type owl:Class ;
+                   rdfs:subClassOf :OperationLocation .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Employee
+:Employee rdf:type owl:Class ;
+          rdfs:subClassOf :Person ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf gufo:mediates
+                                           ] ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :EmployeeContract
+                          ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmployeeContract
+:EmployeeContract rdf:type owl:Class ;
+                  rdfs:subClassOf gufo:Relator ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf gufo:mediates
+                                                   ] ;
+                                    owl:someValuesFrom :Employer
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty [ owl:inverseOf gufo:mediates
+                                                   ] ;
+                                    owl:someValuesFrom :Project
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty gufo:mediates ;
+                                    owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Employee
+                                  ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Employer
+:Employer rdf:type owl:Class ;
+          rdfs:subClassOf :Organization ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty gufo:mediates ;
+                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :EmployeeContract
+                          ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Evaluator
+:Evaluator rdf:type owl:Class ;
+           rdfs:subClassOf :Programmer ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf gufo:mediates
+                                            ] ;
+                             owl:someValuesFrom :NeedsAssessment
+                           ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodDistributionPoint
+:FoodDistributionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :DistributionPoint .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodItem
+:FoodItem rdf:type owl:Class ;
+          rdfs:subClassOf :AidItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodSecurity
+:FoodSecurity rdf:type owl:Class ;
+              rdfs:subClassOf :SectorNeed .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Health
+:Health rdf:type owl:Class ;
+        rdfs:subClassOf :SectorNeed .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HealthItem
+:HealthItem rdf:type owl:Class ;
+            rdfs:subClassOf :NonFoodItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HouseholdItem
+:HouseholdItem rdf:type owl:Class ;
+               rdfs:subClassOf :NonFoodItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HygieneItem
+:HygieneItem rdf:type owl:Class ;
+             rdfs:subClassOf :WASHItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ImpactReport
+:ImpactReport rdf:type owl:Class ;
+              rdfs:subClassOf gufo:Relator ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:someValuesFrom :Affected
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:mediates ;
+                                owl:someValuesFrom :DataCollector
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gufo:inheresIn ;
+                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :SectorNeed
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty [ owl:inverseOf gufo:mediates
+                                               ] ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :AffectedLocation
+                              ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ImplementingPartner
+:ImplementingPartner rdf:type owl:Class ;
+                     rdfs:subClassOf :Organization ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty [ owl:inverseOf gufo:mediates
+                                                      ] ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :PartnershipContract
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty [ owl:inverseOf gufo:mediates
+                                                      ] ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Project
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty [ owl:inverseOf :Has_11
+                                                      ] ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Programmer
+                                     ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Inventory
+:Inventory rdf:type owl:Class ;
+           rdfs:subClassOf gufo:Relator ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty gufo:mediates ;
+                             owl:someValuesFrom :StoredItem
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf gufo:mediates
+                                            ] ;
+                             owl:someValuesFrom :ResourceOwner
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf gufo:mediates
+                                            ] ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :StorageLocation
+                           ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Location
+:Location rdf:type owl:Class ;
+          rdfs:subClassOf gufo:FunctionalComplex .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NeedsAssessment
+:NeedsAssessment rdf:type owl:Class ;
+                 rdfs:subClassOf gufo:Relator ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gufo:mediates ;
+                                   owl:someValuesFrom :Respondee
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                                  ] ;
+                                   owl:someValuesFrom :SectorNeed
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                  ] ;
+                                   owl:someValuesFrom :Project
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gufo:mediates ;
+                                   owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Evaluator
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty [ owl:inverseOf gufo:mediates
+                                                  ] ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :RespondeeLocation
+                                 ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NonFoodDistributionPoint
+:NonFoodDistributionPoint rdf:type owl:Class ;
+                          rdfs:subClassOf :DistributionPoint .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NonFoodItem
+:NonFoodItem rdf:type owl:Class ;
+             owl:equivalentClass [ rdf:type owl:Class ;
+                                   owl:unionOf ( :HealthItem
+                                                 :HouseholdItem
+                                                 :ShelterItem
+                                                 :WASHItem
+                                               )
+                                 ] ;
+             rdfs:subClassOf :AidItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Office
+:Office rdf:type owl:Class ;
+        rdfs:subClassOf :OperationLocation .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OperationLocation
+:OperationLocation rdf:type owl:Class ;
+                   rdfs:subClassOf :Location .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Organization
+:Organization rdf:type owl:Class ;
+              rdfs:subClassOf gufo:FunctionalComplex .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#PartnershipContract
+:PartnershipContract rdf:type owl:Class ;
+                     rdfs:subClassOf gufo:Relator ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty gufo:mediates ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ImplementingPartner
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty gufo:mediates ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Programmer
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty gufo:mediates ;
+                                       owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Project
+                                     ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Pending
+:Pending rdf:type owl:Class ;
+         rdfs:subClassOf :NeedsAssessment .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf gufo:FunctionalComplex .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Population
+:Population rdf:type owl:Class ;
+            rdfs:subClassOf gufo:FunctionalComplex .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Programmer
+:Programmer rdf:type owl:Class ;
+            rdfs:subClassOf :Organization ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :Has_11 ;
+                              owl:someValuesFrom :ImplementingPartner
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf gufo:mediates
+                                             ] ;
+                              owl:someValuesFrom :PartnershipContract
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:mediates ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Project
+                            ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Project
+:Project rdf:type owl:Class ;
+         rdfs:subClassOf gufo:Relator ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:someValuesFrom :ImplementingPartner
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty [ owl:inverseOf gufo:mediates
+                                          ] ;
+                           owl:someValuesFrom :Delivery
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty [ owl:inverseOf gufo:mediates
+                                          ] ;
+                           owl:someValuesFrom :PartnershipContract
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty [ owl:inverseOf gufo:mediates
+                                          ] ;
+                           owl:someValuesFrom :Programmer
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty [ owl:inverseOf gufo:mediates
+                                          ] ;
+                           owl:someValuesFrom :SectorNeed
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :BenefitContract
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Distribution
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :EmployeeContract
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :NeedsAssessment
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gufo:mediates ;
+                           owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :TargetedForAssitance
+                         ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#PromisedAidItems
+:PromisedAidItems rdf:type owl:Class ;
+                  rdfs:subClassOf gufo:ConcreteIndividualType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Receipt
+:Receipt rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:unionOf ( :BeneficiaryReceipt
+                                             :DeliveryReceipt
+                                           )
+                             ] ;
+         rdfs:subClassOf gufo:FunctionalComplex .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ReceivingImplementingPartner
+:ReceivingImplementingPartner rdf:type owl:Class ;
+                              rdfs:subClassOf :ImplementingPartner ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty gufo:mediates ;
+                                                owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :Delivery
+                                              ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RejectedApplication
+:RejectedApplication rdf:type owl:Class ;
+                     rdfs:subClassOf :NeedsAssessment .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ResourceOwner
+:ResourceOwner rdf:type owl:Class ;
+               rdfs:subClassOf :Organization ,
+                               :Programmer ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty gufo:mediates ;
+                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Inventory
+                               ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Respondee
+:Respondee rdf:type owl:Class ;
+           rdfs:subClassOf :Person ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty [ owl:inverseOf gufo:mediates
+                                            ] ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :NeedsAssessment
+                           ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeLocation
+:RespondeeLocation rdf:type owl:Class ;
+                   rdfs:subClassOf :Area ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty gufo:mediates ;
+                                     owl:someValuesFrom :NeedsAssessment
+                                   ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SanitationItem
+:SanitationItem rdf:type owl:Class ;
+                rdfs:subClassOf :WASHItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SectorNeed
+:SectorNeed rdf:type owl:Class ;
+            rdfs:subClassOf gufo:IntrinsicMode ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:mediates ;
+                              owl:someValuesFrom :BenefitContract
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                             ] ;
+                              owl:someValuesFrom :Delivery
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                             ] ;
+                              owl:someValuesFrom :Distribution
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf gufo:inheresIn
+                                             ] ;
+                              owl:someValuesFrom :ImpactReport
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:inheresIn ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :AidItem
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:inheresIn ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Delivery
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:inheresIn ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :NeedsAssessment
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty gufo:mediates ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Project
+                            ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Shelter
+:Shelter rdf:type owl:Class ;
+         rdfs:subClassOf :SectorNeed .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ShelterItem
+:ShelterItem rdf:type owl:Class ;
+             rdfs:subClassOf :NonFoodItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StorageLocation
+:StorageLocation rdf:type owl:Class ;
+                 rdfs:subClassOf :Warehouse ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gufo:mediates ;
+                                   owl:someValuesFrom :Inventory
+                                 ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StoredItem
+:StoredItem rdf:type owl:Class ;
+            rdfs:subClassOf :AidItem ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty [ owl:inverseOf gufo:mediates
+                                             ] ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Inventory
+                            ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Supplier
+:Supplier rdf:type owl:Class ;
+          rdfs:subClassOf :Organization ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty [ owl:inverseOf gufo:mediates
+                                           ] ;
+                            owl:someValuesFrom :Delivery
+                          ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SupportingOrganization
+:SupportingOrganization rdf:type owl:Class ;
+                        rdfs:subClassOf :Programmer ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty [ owl:inverseOf gufo:mediates
+                                                         ] ;
+                                          owl:someValuesFrom :BenefitContract
+                                        ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#TargetedForAssitance
+:TargetedForAssitance rdf:type owl:Class ;
+                      rdfs:subClassOf :Population ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty [ owl:inverseOf gufo:mediates
+                                                       ] ;
+                                        owl:someValuesFrom :Project
+                                      ] .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#WASH
+:WASH rdf:type owl:Class ;
+      rdfs:subClassOf :SectorNeed .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#WASHItem
+:WASHItem rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:unionOf ( :HygieneItem
+                                              :SanitationItem
+                                              :Water
+                                            )
+                              ] ;
+          rdfs:subClassOf :NonFoodItem .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Warehouse
+:Warehouse rdf:type owl:Class ;
+           rdfs:subClassOf :Location ,
+                           :OperationLocation .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Water
+:Water rdf:type owl:Class ;
+       rdfs:subClassOf :WASHItem .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AcceptedApplication
+:AcceptedApplication rdf:type owl:NamedIndividual ,
+                              gufo:Phase .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Affected
+:Affected rdf:type owl:NamedIndividual ,
+                   gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AffectedLocation
+:AffectedLocation rdf:type owl:NamedIndividual ,
+                           gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AidItem
+:AidItem rdf:type owl:NamedIndividual ,
+                  gufo:Kind ;
+         gufo:categorizes :PromisedAidItems .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#AnalyzedBy
+:AnalyzedBy rdf:type owl:NamedIndividual ,
+                     gufo:MaterialRelationshipType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ApplicationBeingProcessed
+:ApplicationBeingProcessed rdf:type owl:NamedIndividual ,
+                                    gufo:Phase .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Area
+:Area rdf:type owl:NamedIndividual ,
+               gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Beneficiary
+:Beneficiary rdf:type owl:NamedIndividual ,
+                      gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryLocation
+:BeneficiaryLocation rdf:type owl:NamedIndividual ,
+                              gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BeneficiaryReceipt
+:BeneficiaryReceipt rdf:type owl:NamedIndividual ,
+                             gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#BenefitContract
+:BenefitContract rdf:type owl:NamedIndividual ,
+                          gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CashDistributionPoint
+:CashDistributionPoint rdf:type owl:NamedIndividual ,
+                                gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#CashVoucher
+:CashVoucher rdf:type owl:NamedIndividual ,
+                      gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DataCollector
+:DataCollector rdf:type owl:NamedIndividual ,
+                        gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Delivery
+:Delivery rdf:type owl:NamedIndividual ,
+                   gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryItem
+:DeliveryItem rdf:type owl:NamedIndividual ,
+                       gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryLocation
+:DeliveryLocation rdf:type owl:NamedIndividual ,
+                           gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DeliveryReceipt
+:DeliveryReceipt rdf:type owl:NamedIndividual ,
+                          gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributingImplementingPartner
+:DistributingImplementingPartner rdf:type owl:NamedIndividual ,
+                                          gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Distribution
+:Distribution rdf:type owl:NamedIndividual ,
+                       gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionItem
+:DistributionItem rdf:type owl:NamedIndividual ,
+                           gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionLocation
+:DistributionLocation rdf:type owl:NamedIndividual ,
+                               gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#DistributionPoint
+:DistributionPoint rdf:type owl:NamedIndividual ,
+                            gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Employee
+:Employee rdf:type owl:NamedIndividual ,
+                   gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#EmployeeContract
+:EmployeeContract rdf:type owl:NamedIndividual ,
+                           gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Employer
+:Employer rdf:type owl:NamedIndividual ,
+                   gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Evaluator
+:Evaluator rdf:type owl:NamedIndividual ,
+                    gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodDistributionPoint
+:FoodDistributionPoint rdf:type owl:NamedIndividual ,
+                                gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodItem
+:FoodItem rdf:type owl:NamedIndividual ,
+                   gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#FoodSecurity
+:FoodSecurity rdf:type owl:NamedIndividual ,
+                       gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#GetsAid
+:GetsAid rdf:type owl:NamedIndividual ,
+                  gufo:MaterialRelationshipType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HasPromisedItems
+:HasPromisedItems rdf:type owl:NamedIndividual ,
+                           gufo:MaterialRelationshipType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Has_11
+:Has_11 rdf:type owl:NamedIndividual ,
+                 gufo:MaterialRelationshipType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Health
+:Health rdf:type owl:NamedIndividual ,
+                 gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HealthItem
+:HealthItem rdf:type owl:NamedIndividual ,
+                     gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HouseholdItem
+:HouseholdItem rdf:type owl:NamedIndividual ,
+                        gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#HygieneItem
+:HygieneItem rdf:type owl:NamedIndividual ,
+                      gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ImpactReport
+:ImpactReport rdf:type owl:NamedIndividual ,
+                       gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ImplementingPartner
+:ImplementingPartner rdf:type owl:NamedIndividual ,
+                              gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Inventory
+:Inventory rdf:type owl:NamedIndividual ,
+                    gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Location
+:Location rdf:type owl:NamedIndividual ,
+                   gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NeedsAssessment
+:NeedsAssessment rdf:type owl:NamedIndividual ,
+                          gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NonFoodDistributionPoint
+:NonFoodDistributionPoint rdf:type owl:NamedIndividual ,
+                                   gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#NonFoodItem
+:NonFoodItem rdf:type owl:NamedIndividual ,
+                      gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Office
+:Office rdf:type owl:NamedIndividual ,
+                 gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#OperationLocation
+:OperationLocation rdf:type owl:NamedIndividual ,
+                            gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Organization
+:Organization rdf:type owl:NamedIndividual ,
+                       gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#PartnershipContract
+:PartnershipContract rdf:type owl:NamedIndividual ,
+                              gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Pending
+:Pending rdf:type owl:NamedIndividual ,
+                  gufo:Phase .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Person
+:Person rdf:type owl:NamedIndividual ,
+                 gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Population
+:Population rdf:type owl:NamedIndividual ,
+                     gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Programmer
+:Programmer rdf:type owl:NamedIndividual ,
+                     gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Project
+:Project rdf:type owl:NamedIndividual ,
+                  gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#PromisedAidItems
+:PromisedAidItems rdf:type owl:NamedIndividual .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Receipt
+:Receipt rdf:type owl:NamedIndividual ,
+                  gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ReceivingImplementingPartner
+:ReceivingImplementingPartner rdf:type owl:NamedIndividual ,
+                                       gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RejectedApplication
+:RejectedApplication rdf:type owl:NamedIndividual ,
+                              gufo:Phase .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ReportedBy
+:ReportedBy rdf:type owl:NamedIndividual ,
+                     gufo:MaterialRelationshipType .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ResourceOwner
+:ResourceOwner rdf:type owl:NamedIndividual ,
+                        gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Respondee
+:Respondee rdf:type owl:NamedIndividual ,
+                    gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#RespondeeLocation
+:RespondeeLocation rdf:type owl:NamedIndividual ,
+                            gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SanitationItem
+:SanitationItem rdf:type owl:NamedIndividual ,
+                         gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SectorNeed
+:SectorNeed rdf:type owl:NamedIndividual ,
+                     gufo:Category .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Shelter
+:Shelter rdf:type owl:NamedIndividual ,
+                  gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#ShelterItem
+:ShelterItem rdf:type owl:NamedIndividual ,
+                      gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StorageLocation
+:StorageLocation rdf:type owl:NamedIndividual ,
+                          gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#StoredItem
+:StoredItem rdf:type owl:NamedIndividual ,
+                     gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Supplier
+:Supplier rdf:type owl:NamedIndividual ,
+                   gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#SupportingOrganization
+:SupportingOrganization rdf:type owl:NamedIndividual ,
+                                 gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#TargetedForAssitance
+:TargetedForAssitance rdf:type owl:NamedIndividual ,
+                               gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#WASH
+:WASH rdf:type owl:NamedIndividual ,
+               gufo:Kind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#WASHItem
+:WASHItem rdf:type owl:NamedIndividual ,
+                   gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Warehouse
+:Warehouse rdf:type owl:NamedIndividual ,
+                    gufo:Role .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#Water
+:Water rdf:type owl:NamedIndividual ,
+                gufo:SubKind .
+
+
+###  https://ontology.humanitariandata.org/hxl-ontology#hasEmployee
+:hasEmployee rdf:type owl:NamedIndividual ,
+                      gufo:MaterialRelationshipType .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:AcceptedApplication rdfs:label "Accepted Application "@en .
+
+
+:Affected rdfs:label "Affected"@en .
+
+
+:AffectedLocation rdfs:label "Affected Location"@en .
+
+
+:AidItem rdfs:label "Aid Item"@en .
+
+
+:AnalyzedBy rdfs:label "AnalyzedBy"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#respondee +evaluator" .
+
+
+:ApplicationBeingProcessed rdfs:label "Application Being Processed "@en .
+
+
+:Area rdfs:label "Area"@en .
+
+
+:Beneficiary rdfs:label "Beneficiary"@en .
+
+
+:BeneficiaryLocation rdfs:label "Beneficiary Location"@en .
+
+
+:BeneficiaryReceipt rdfs:label "Beneficiary Receipt"@en .
+
+
+:BenefitContract rdfs:label "Benefit Contract"@en .
+
+
+:CashDistributionPoint rdfs:label "Cash Distribution Point"@en .
+
+
+:CashVoucher rdfs:label "Cash Voucher"@en .
+
+
+:DataCollector rdfs:label "Data Collector"@en .
+
+
+:Delivery rdfs:label "Delivery"@en .
+
+
+:DeliveryItem rdfs:label "Delivery Item"@en .
+
+
+:DeliveryLocation rdfs:label "Delivery Location"@en .
+
+
+:DeliveryReceipt rdfs:label "Delivery Receipt"@en .
+
+
+:DistributingImplementingPartner rdfs:label "Distributing Implementing Partner"@en .
+
+
+:Distribution rdfs:label "Distribution"@en .
+
+
+:DistributionItem rdfs:label "Distribution Item"@en .
+
+
+:DistributionLocation rdfs:label "Distribution Location"@en .
+
+
+:DistributionPoint rdfs:label "Distribution Point "@en .
+
+
+:Employee rdfs:label "Employee"@en .
+
+
+:EmployeeContract rdfs:label "Employee Contract"@en .
+
+
+:Employer rdfs:label "Employer"@en .
+
+
+:Evaluator rdfs:label "Evaluator"@en .
+
+
+:FoodDistributionPoint rdfs:label "Food Distribution Point "@en .
+
+
+:FoodItem rdfs:label "Food Item"@en .
+
+
+:FoodSecurity rdfs:label "Food Security"@en .
+
+
+:GetsAid rdfs:label "GetsAid"@en ;
+         <https://hxlstandard.org/ns/#HXL> "#beneficiary +items" .
+
+
+:HasPromisedItems rdfs:label "HasPromisedItems"@en ;
+                  <https://hxlstandard.org/ns/#HXL> "#item +promised" .
+
+
+:Has_11 rdfs:label "Has"@en ;
+        <https://hxlstandard.org/ns/#HXL> "#org +partner" .
+
+
+:Health rdfs:label "Health"@en .
+
+
+:HealthItem rdfs:label "Health Item"@en .
+
+
+:HouseholdItem rdfs:label "Household Item"@en .
+
+
+:HygieneItem rdfs:label "Hygiene Item"@en .
+
+
+:ImpactReport rdfs:label "Impact Report"@en .
+
+
+:ImplementingPartner rdfs:label "Implementing Partner"@en .
+
+
+:Inventory rdfs:label "Inventory"@en .
+
+
+:Location rdfs:label "Location"@en .
+
+
+:NeedsAssessment rdfs:label "Needs Assessment"@en .
+
+
+:NonFoodDistributionPoint rdfs:label "Non Food Distribution Point"@en .
+
+
+:NonFoodItem rdfs:label "Non-food Item"@en .
+
+
+:Office rdfs:label "Office"@en .
+
+
+:OperationLocation rdfs:label "Operation Location	"@en .
+
+
+:Organization rdfs:label "Organization "@en .
+
+
+:PartnershipContract rdfs:label "Partnership Contract"@en .
+
+
+:Pending rdfs:label "Pending "@en .
+
+
+:Person rdfs:label "Person"@en .
+
+
+:Population rdfs:label "Population"@en .
+
+
+:Programmer rdfs:label "Programmer"@en .
+
+
+:Project rdfs:label "Project"@en .
+
+
+:PromisedAidItems rdfs:label "Promised Aid Items"@en .
+
+
+:Receipt rdfs:label "Receipt"@en .
+
+
+:ReceivingImplementingPartner rdfs:label "Receiving Implementing Partner"@en .
+
+
+:RejectedApplication rdfs:label "Rejected Application"@en .
+
+
+:ReportedBy rdfs:label "ReportedBy"@en ;
+            <https://hxlstandard.org/ns/#HXL> "#impactReport +collector" .
+
+
+:ResourceOwner rdfs:label "Resource Owner"@en .
+
+
+:Respondee rdfs:label "Respondee"@en .
+
+
+:RespondeeLocation rdfs:label "Respondee Location"@en .
+
+
+:SanitationItem rdfs:label "Sanitation Item"@en .
+
+
+:SectorNeed rdfs:label "Sector Need"@en .
+
+
+:Shelter rdfs:label "Shelter"@en .
+
+
+:ShelterItem rdfs:label "Shelter Item"@en .
+
+
+:StorageLocation rdfs:label "Storage Location"@en .
+
+
+:StoredItem rdfs:label "Stored Item"@en .
+
+
+:Supplier rdfs:label "Supplier"@en .
+
+
+:SupportingOrganization rdfs:label "Supporting Organization"@en .
+
+
+:TargetedForAssitance rdfs:label "Targeted For Assitance"@en .
+
+
+:WASH rdfs:label "WASH"@en .
+
+
+:WASHItem rdfs:label "WASH Item"@en .
+
+
+:Warehouse rdfs:label "Warehouse "@en .
+
+
+:Water rdfs:label "Water	"@en .
+
+
+:hasEmployee rdfs:label "hasEmployee"@en ;
+             <https://hxlstandard.org/ns/#HXL> "#org +employee" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :HealthItem
+                :HouseholdItem
+                :ShelterItem
+                :WASHItem
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :HygieneItem
+                :SanitationItem
+                :Water
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

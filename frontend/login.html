@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HumanitarianLink — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f1117;--bg2:#161b22;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--text3:#484f58;--green:#3fb950;--blue:#58a6ff;--red:#f85149;--font:"IBM Plex Sans",sans-serif;--r:6px}
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font);display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:36px}
+.brand{text-align:center;margin-bottom:28px}
+.brand h1{font-size:22px;font-weight:500;margin-bottom:6px}
+.brand p{font-size:13px;color:var(--text2);line-height:1.5}
+.tabs{display:flex;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
+.tab{flex:1;padding:8px;font-size:13px;cursor:pointer;background:none;border:none;color:var(--text2);font-family:var(--font)}
+.tab.active{background:var(--bg);color:var(--text);font-weight:500}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--text2);margin-bottom:5px}
+.field input{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:13px;font-family:var(--font);outline:none}
+.field input:focus{border-color:#58a6ff}
+.btn-submit{width:100%;padding:10px;background:var(--green);color:#000;border:none;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font);margin-top:6px}
+.btn-submit:hover{opacity:.85}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.msg{font-size:12px;margin-top:12px;text-align:center;min-height:18px}
+.msg.error{color:var(--red)}
+.msg.success{color:var(--green)}
+.divider{text-align:center;font-size:11px;color:var(--text3);margin:16px 0}
+.extra{font-size:12px;color:var(--text2);text-align:center;margin-top:16px;line-height:1.6}
+#register-extra{display:none}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid #00000040;border-top-color:#000;border-radius:50%;animation:spin .5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">
+    <h1>🌐 HumanitarianLink</h1>
+    <p>Connect humanitarian data across organizations.<br>Tag, query, and share — without merging spreadsheets.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('login',this)">Sign in</button>
+    <button class="tab" onclick="switchTab('register',this)">Create account</button>
+  </div>
+
+  <div id="login-form">
+    <div class="field">
+      <label>Email address</label>
+      <input type="email" id="login-email" placeholder="you@organization.org" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-submit" id="login-btn" onclick="doLogin()">Sign in</button>
+    <div class="msg" id="login-msg"></div>
+  </div>
+
+  <div id="register-form" style="display:none">
+    <div class="field">
+      <label>Organization name</label>
+      <input type="text" id="reg-org" placeholder="e.g. NRC, WeCare, UNHCR">
+    </div>
+    <div class="field">
+      <label>Email address</label>
+      <input type="email" id="reg-email" placeholder="you@organization.org" autocomplete="email">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="reg-password" placeholder="Choose a password (min 8 characters)" autocomplete="new-password">
+    </div>
+    <button class="btn-submit" id="reg-btn" onclick="doRegister()">Create account</button>
+    <div class="msg" id="reg-msg"></div>
+    <div class="extra" id="register-extra">
+      Check your email to confirm your account, then sign in.
+    </div>
+  </div>
+
+  <div class="extra">
+    Your data stays private. Only you can access your organization's files.
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://dnriilwaraxhxpebjlys.supabase.co'
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRucmlpbHdhcmF4aHhwZWJqbHlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NDcxODksImV4cCI6MjA5ODEyMzE4OX0.08kkGcuiqE_zcWVlLlMTlF7CHF4U7OpjM0O090UdOZs'
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+
+// If already logged in, go to app
+sb.auth.getSession().then(({data:{session}})=>{
+  if(session) window.location.href = '/';
+})
+
+function switchTab(tab, btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'))
+  btn.classList.add('active')
+  document.getElementById('login-form').style.display = tab==='login'?'block':'none'
+  document.getElementById('register-form').style.display = tab==='register'?'block':'none'
+}
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim()
+  const password = document.getElementById('login-password').value
+  const btn = document.getElementById('login-btn')
+  const msg = document.getElementById('login-msg')
+  if(!email||!password){msg.className='msg error';msg.textContent='Please fill in all fields.';return}
+  btn.disabled=true
+  btn.innerHTML='<span class="spin"></span>'
+  msg.textContent=''
+  const {error} = await sb.auth.signInWithPassword({email,password})
+  if(error){
+    msg.className='msg error'
+    msg.textContent=error.message==='Invalid login credentials'?'Wrong email or password. Try again.':error.message
+    btn.disabled=false
+    btn.textContent='Sign in'
+  }else{
+    msg.className='msg success'
+    msg.textContent='Signed in! Loading...'
+    window.location.href='/'
+  }
+}
+
+async function doRegister(){
+  const org = document.getElementById('reg-org').value.trim()
+  const email = document.getElementById('reg-email').value.trim()
+  const password = document.getElementById('reg-password').value
+  const btn = document.getElementById('reg-btn')
+  const msg = document.getElementById('reg-msg')
+  if(!org||!email||!password){msg.className='msg error';msg.textContent='Please fill in all fields.';return}
+  if(password.length<8){msg.className='msg error';msg.textContent='Password must be at least 8 characters.';return}
+  btn.disabled=true
+  btn.innerHTML='<span class="spin"></span>'
+  msg.textContent=''
+  const {error} = await sb.auth.signUp({
+    email, password,
+    options:{data:{org_name:org}}
+  })
+  if(error){
+    msg.className='msg error'
+    msg.textContent=error.message
+    btn.disabled=false
+    btn.textContent='Create account'
+  }else{
+    btn.textContent='Create account'
+    btn.disabled=false
+    document.getElementById('register-extra').style.display='block'
+    msg.className='msg success'
+    msg.textContent='Account created! Check your email to confirm.'
+  }
+}
+</script>
+</body>
+</html>
