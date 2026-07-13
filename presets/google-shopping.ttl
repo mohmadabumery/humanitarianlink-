@@ -1,0 +1,243 @@
+@prefix : <https://catalogbridge.com/ontology/google-shopping#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://catalogbridge.com/ontology/google-shopping> rdf:type owl:Ontology ;
+    rdfs:label "Google Shopping Product Feed"@en ;
+    rdfs:comment "Product data fields required by Google Merchant Center for Shopping feeds. Based on schema.org/Product with Google-specific extensions."@en .
+
+
+###########################################################################
+# Classes
+###########################################################################
+
+:Product rdf:type owl:Class ;
+    rdfs:label "Product"@en ;
+    rdfs:comment "A single product listed for sale."@en .
+
+:Offer rdf:type owl:Class ;
+    rdfs:label "Offer"@en ;
+    rdfs:comment "A specific offer to sell a product at a price."@en .
+
+:Brand rdf:type owl:Class ;
+    rdfs:label "Brand"@en ;
+    rdfs:comment "The brand or manufacturer of the product."@en .
+
+:Shipping rdf:type owl:Class ;
+    rdfs:label "Shipping"@en ;
+    rdfs:comment "Shipping information for the product."@en .
+
+
+###########################################################################
+# Object properties (relationships between entities)
+###########################################################################
+
+:hasOffer rdf:type owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:range :Offer ;
+    rdfs:label "has offer"@en .
+
+:hasBrand rdf:type owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:range :Brand ;
+    rdfs:label "has brand"@en .
+
+:hasShipping rdf:type owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:range :Shipping ;
+    rdfs:label "has shipping"@en .
+
+
+###########################################################################
+# Product — required fields
+###########################################################################
+
+:ProductID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Product ID"@en ;
+    rdfs:comment "Unique identifier for your product. Also called SKU or item id. Required."@en .
+
+:Title rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Title"@en ;
+    rdfs:comment "Product title as shown to shoppers. Max 150 characters. Required."@en .
+
+:Description rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Description"@en ;
+    rdfs:comment "Detailed product description. Max 5000 characters. Required."@en .
+
+:ProductLink rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Product URL"@en ;
+    rdfs:comment "The landing page URL for the product on your website. Required."@en .
+
+:MainImageURL rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Main Image URL"@en ;
+    rdfs:comment "Primary product image URL. Must be HTTPS. Required."@en .
+
+:Condition rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Condition"@en ;
+    rdfs:comment "Product condition: 'new', 'refurbished', or 'used'. Required."@en .
+
+:Availability rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Availability"@en ;
+    rdfs:comment "Stock status: 'in stock', 'out of stock', 'preorder', or 'backorder'. Required."@en .
+
+
+###########################################################################
+# Product — recommended fields
+###########################################################################
+
+:GTIN rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "GTIN"@en ;
+    rdfs:comment "Global Trade Item Number (UPC, EAN, ISBN, or JAN). Strongly recommended for new products."@en .
+
+:MPN rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "MPN"@en ;
+    rdfs:comment "Manufacturer Part Number. Required if the product has no GTIN."@en .
+
+:GoogleProductCategory rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Google Product Category"@en ;
+    rdfs:comment "Google's predefined product category (e.g. 'Apparel & Accessories > Clothing > Shirts')."@en .
+
+:ProductType rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Product Type"@en ;
+    rdfs:comment "Your internal product category or taxonomy path."@en .
+
+:AdditionalImageURL rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Additional Image URL"@en ;
+    rdfs:comment "Additional product image URL(s), comma-separated."@en .
+
+:Color rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Color"@en ;
+    rdfs:comment "Product color. Required for apparel."@en .
+
+:Size rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Size"@en ;
+    rdfs:comment "Product size (e.g. 'XL', '32', '10.5'). Required for apparel."@en .
+
+:Material rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Material"@en ;
+    rdfs:comment "Primary material (e.g. 'cotton', 'leather')."@en .
+
+:Pattern rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Pattern"@en ;
+    rdfs:comment "Pattern or graphic (e.g. 'striped', 'solid')."@en .
+
+:AgeGroup rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Age Group"@en ;
+    rdfs:comment "Target age group: 'newborn', 'infant', 'toddler', 'kids', 'adult'. Required for apparel."@en .
+
+:Gender rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Gender"@en ;
+    rdfs:comment "Target gender: 'male', 'female', 'unisex'. Required for apparel."@en .
+
+:Weight rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:range xsd:string ;
+    rdfs:label "Weight"@en ;
+    rdfs:comment "Product weight with unit (e.g. '2.5 lb', '1.2 kg')."@en .
+
+
+###########################################################################
+# Brand
+###########################################################################
+
+:BrandName rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Brand ;
+    rdfs:range xsd:string ;
+    rdfs:label "Brand Name"@en ;
+    rdfs:comment "The brand of the product. Strongly recommended."@en .
+
+
+###########################################################################
+# Offer (pricing)
+###########################################################################
+
+:OfferID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Offer ;
+    rdfs:range xsd:string ;
+    rdfs:label "Offer ID"@en ;
+    rdfs:comment "Unique identifier for this offer (often same as Product ID)."@en .
+
+:Price rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Offer ;
+    rdfs:range xsd:string ;
+    rdfs:label "Price"@en ;
+    rdfs:comment "Product price. Include currency, e.g. '19.99 USD'. Required."@en .
+
+:SalePrice rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Offer ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sale Price"@en ;
+    rdfs:comment "Discounted price if on sale. Format like Price."@en .
+
+:SalePriceEffectiveDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Offer ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sale Price Effective Date"@en ;
+    rdfs:comment "Time range the sale price applies (ISO 8601)."@en .
+
+:Currency rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Offer ;
+    rdfs:range xsd:string ;
+    rdfs:label "Currency"@en ;
+    rdfs:comment "ISO 4217 currency code (USD, EUR, GBP)."@en .
+
+
+###########################################################################
+# Shipping
+###########################################################################
+
+:ShippingCountry rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Shipping ;
+    rdfs:range xsd:string ;
+    rdfs:label "Shipping Country"@en ;
+    rdfs:comment "Country the shipping cost applies to (ISO 3166-1 alpha-2)."@en .
+
+:ShippingPrice rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Shipping ;
+    rdfs:range xsd:string ;
+    rdfs:label "Shipping Price"@en ;
+    rdfs:comment "Shipping cost with currency (e.g. '4.99 USD')."@en .
+
+:ShippingService rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Shipping ;
+    rdfs:range xsd:string ;
+    rdfs:label "Shipping Service"@en ;
+    rdfs:comment "Shipping service name (e.g. 'Standard', 'Express')."@en .

@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>HumanitarianLink</title><title>HXL Ontology Tagger</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f1117;--bg2:#161b22;--bg3:#21262d;--border:#30363d;--border2:#484f58;--text:#e6edf3;--text2:#8b949e;--text3:#484f58;--green:#3fb950;--blue:#58a6ff;--amber:#d29922;--red:#f85149;--font:"IBM Plex Sans",sans-serif;--mono:"IBM Plex Mono",monospace;--r:6px}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:13px}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+#app{display:grid;grid-template-rows:48px 1fr;height:100vh;overflow:hidden}
+#topbar{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.logo{font-size:14px;font-weight:500}.logo span{color:var(--green);font-family:var(--mono)}.sp{flex:1}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--red)}.dot.ok{background:var(--green)}
+#body{display:grid;grid-template-columns:230px 1fr;overflow:hidden;transition:grid-template-columns .2s}
+#body.collapsed{grid-template-columns:0 1fr}
+#sidebar{overflow:hidden}
+.collapse-btn{background:none;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;color:var(--text2);font-size:12px;padding:3px 7px;margin-left:4px}
+.collapse-btn:hover{border-color:var(--border2);color:var(--text)}
+#sidebar{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+#sidebar h3{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);padding:10px 12px 6px}
+#search{margin:0 12px 6px;padding:5px 8px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:12px;font-family:var(--font);outline:none;width:calc(100% - 24px)}
+#search:focus{border-color:var(--border2)}
+#sel-bar{display:none;margin:0 12px 6px;padding:4px 7px;background:#1f6feb20;border:1px solid #1f6feb40;border-radius:var(--r);font-size:11px;color:var(--blue)}
+#prop-list{flex:1;overflow-y:auto}
+.dh{display:flex;align-items:center;gap:6px;padding:5px 12px;cursor:pointer;font-size:11px;color:var(--text2);user-select:none}.dh:hover{background:var(--bg3)}
+.dd{width:7px;height:7px;border-radius:50%;flex-shrink:0}.dn{flex:1;font-weight:500}.dc{font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:8px}
+.pi{padding:5px 12px 5px 28px;cursor:pointer;border-left:2px solid transparent}.pi:hover{background:var(--bg3)}.pi.sel{background:var(--bg3);border-left-width:3px;outline:1px solid #1f6feb40}
+.pl{font-size:12px;color:var(--text)}.ph{font-size:10px;color:var(--text3);font-family:var(--mono)}
+#main{display:flex;flex-direction:column;overflow:hidden}
+#mhdr{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+#wbc{display:flex;gap:6px;flex-wrap:wrap}
+.wbchip{display:flex;align-items:center;gap:5px;padding:3px 8px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;font-size:11px;color:var(--text2);max-width:160px;background:var(--bg3)}.wbchip.active{border-color:var(--blue);color:var(--text)}
+.wcn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wbdg{font-size:10px;background:#3fb95022;color:var(--green);padding:1px 4px;border-radius:8px;flex-shrink:0}
+.wbrm{background:none;border:none;cursor:pointer;color:var(--text3);font-size:11px;padding:0;line-height:1}.wbrm:hover{color:var(--red)}
+#st{font-size:11px;color:var(--text2);margin-left:auto}
+#tabbar{display:flex;align-items:center;padding:0 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.tb{padding:8px 14px;font-size:12px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}.tb.active{color:var(--text);border-bottom-color:var(--blue)}.tb:hover:not(.active){color:var(--text)}
+.tbsp{flex:1}.smbtn{padding:4px 10px;font-size:11px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:var(--font);margin:4px 2px}.smbtn:hover{border-color:var(--border2);color:var(--text)}
+#stabs{display:none;padding:0 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.stab{padding:7px 12px;font-size:12px;cursor:pointer;color:var(--text2);border-bottom:2px solid transparent;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}.stab.active{color:var(--text);border-bottom-color:var(--green)}
+#banner{display:none;align-items:center;gap:10px;padding:8px 14px;background:#d2992212;border-bottom:1px solid #d2992230;flex-shrink:0;font-size:12px;color:var(--text2)}
+#banner strong{color:var(--amber)}.bb{padding:4px 12px;font-size:12px;border:1px solid;border-radius:var(--r);cursor:pointer;font-family:var(--font);background:none}.bb.y{border-color:var(--amber);color:var(--amber)}.bb.y:hover{background:#d2992218}.bb.n{border-color:var(--border);color:var(--text2)}
+#review{display:none;flex-direction:column;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;max-height:220px;overflow-y:auto}
+.rvhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.rvrow{display:flex;align-items:center;justify-content:space-between;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r);margin-bottom:3px;gap:8px}
+.rvl{display:flex;align-items:center;gap:7px;flex:1;min-width:0;overflow:hidden;font-size:12px}
+.rvf{font-size:10px;color:var(--text3);background:var(--bg3);padding:1px 5px;border-radius:4px;flex-shrink:0}
+#wbov{display:none;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
+.wbgrid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.wbcard{border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;cursor:pointer;min-width:130px}.wbcard:hover{border-color:var(--border2)}.wbcard.active{border-color:var(--blue)}
+.wcname{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}.wcmeta{font-size:10px;color:var(--text3);margin-top:2px}
+.wcbar{height:3px;background:var(--bg3);border-radius:2px;margin-top:6px}.wcfill{height:100%;border-radius:2px;transition:width .3s}
+#tab-tag{flex:1;overflow:auto;padding:12px 14px}
+#empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;color:var(--text2);text-align:center}
+.ico{font-size:32px;opacity:.3}
+#swrap{display:none;overflow:auto}
+.tbl{border-collapse:collapse;white-space:nowrap}
+.cth{vertical-align:top;padding:0;min-width:130px;max-width:200px}
+.cname{font-size:11px;padding:3px 6px 2px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+.dz{min-height:52px;border:1px dashed var(--border2);border-radius:var(--r);margin:2px;padding:4px;background:var(--bg2);display:flex;flex-direction:column;gap:3px;cursor:pointer;transition:border-color .1s,background .1s}.dz:hover{border-color:var(--blue)}.dz.tagged{border-style:solid;background:var(--bg)}.dz.over{border-color:var(--green)!important;background:#3fb95008}
+.dzh{font-size:10px;color:var(--text3);text-align:center;padding:8px 4px}
+.tagb{display:flex;align-items:flex-start;gap:4px;padding:3px 5px;border-radius:4px;border:1px solid transparent}
+.tbi{flex:1;min-width:0}.tbl2{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tbh{font-size:9px;font-family:var(--mono);opacity:.7}
+.tgrm{background:none;border:none;cursor:pointer;font-size:12px;opacity:.5;line-height:1;flex-shrink:0;padding:0;color:inherit}.tgrm:hover{opacity:1}
+.cacts{display:flex;align-items:center;gap:2px;padding:2px 4px}
+.aibtn{font-size:10px;padding:2px 6px;border:1px solid var(--border);border-radius:3px;cursor:pointer;background:none;color:var(--text2);font-family:var(--font)}.aibtn:hover{border-color:var(--amber);color:var(--amber)}.aibtn:disabled{opacity:.3;cursor:not-allowed}
+.dtd{padding:4px 8px;font-size:11px;color:var(--text2);border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+.dtr:hover .dtd{background:var(--bg2)}
+#tab-serialize,#tab-checks{display:none;flex-direction:column;padding:12px 14px;gap:10px;overflow:hidden;flex:1}
+#tab-query{display:none;flex-direction:column;padding:12px 14px;gap:8px;overflow:hidden;flex:1}
+#qres{flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:8px;min-height:0}
+.tlbar{display:flex;gap:8px;align-items:center;flex-shrink:0;flex-wrap:wrap}
+.btn{padding:5px 12px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg3);color:var(--text);cursor:pointer;font-family:var(--font)}.btn:hover{border-color:var(--border2)}.btn.p{background:var(--green);color:#000;border-color:var(--green);font-weight:500}.btn.p:hover{opacity:.85}.btn:disabled{opacity:.4;cursor:not-allowed}
+#turtleout{flex:1;overflow:auto;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;font-family:var(--mono);font-size:11px;line-height:1.8;white-space:pre;color:var(--text)}
+.nlrow{display:flex;gap:8px;flex-shrink:0}
+.nli{flex:1;padding:7px 10px;font-size:12px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg);color:var(--text);font-family:var(--font);outline:none}.nli:focus{border-color:var(--border2)}.nli::placeholder{color:var(--text3)}
+#qres{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.spblk{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px}
+.blbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);margin-bottom:6px}
+.spcode{font-family:var(--mono);font-size:11px;line-height:1.7;white-space:pre-wrap;color:var(--text)}
+.summ{padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;color:var(--text2);line-height:1.6}
+.rtwrap{overflow-x:auto;overflow-y:auto;border:1px solid var(--border);border-radius:var(--r);max-height:400px;flex-shrink:0}
+.rtbl{width:100%;min-width:max-content;border-collapse:collapse;font-size:12px}.rtbl th{padding:8px 14px;text-align:left;font-size:11px;font-weight:500;color:var(--text2);background:var(--bg2);border-bottom:1px solid var(--border);white-space:nowrap}.rtbl td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap}.rtbl tr:last-child td{border-bottom:none}.rtbl tr:hover td{background:var(--bg2)}
+.hint{padding:10px 12px;border:1px dashed var(--border);border-radius:var(--r);font-size:12px;color:var(--text3);line-height:1.6}.hint b{color:var(--text2);font-weight:500}
+.chartwrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px;overflow:auto}
+.brow{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:11px}
+.blabel{width:130px;flex-shrink:0;color:var(--text2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btrack{flex:1;background:var(--bg3);border-radius:2px;height:14px;overflow:hidden}.bfill{height:100%;border-radius:2px;background:var(--blue);transition:width .4s}.bval{width:60px;flex-shrink:0;color:var(--text);font-weight:500}
+.ci{display:flex;align-items:flex-start;gap:8px;padding:6px 8px;border-radius:var(--r);margin-bottom:4px;font-size:12px;border:1px solid var(--border);line-height:1.5;color:var(--text2)}.ci.err{border-color:#f8514940;background:#f851490a}.ci.warn{border-color:#d2992240;background:#d299220a}.ci.ok{border-color:#3fb95040;background:#3fb9500a}
+.cgh{margin-bottom:10px}.cghr{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border);margin-bottom:5px}
+code{font-family:var(--mono);background:var(--bg3);padding:1px 4px;border-radius:3px;font-size:11px}
+.ont-group{margin-bottom:18px}
+.ont-title{font-size:12px;font-weight:500;padding:5px 10px;border-radius:var(--r);border:1px solid;display:inline-block;margin-bottom:6px}
+.ont-desc{font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.6}
+.ont-table{border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.ont-row{display:grid;grid-template-columns:200px 1fr;gap:12px;padding:6px 12px;border-bottom:1px solid var(--border);font-size:12px;align-items:center}
+.ont-row:last-child{border-bottom:none}
+.ont-row:hover{background:var(--bg2)}
+.ont-row span{color:var(--text2);line-height:1.5}
+.spin{display:inline-block;width:11px;height:11px;border:1.5px solid var(--border2);border-top-color:var(--text);border-radius:50%;animation:spin .5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+/* Help page */
+#tab-help{display:none;flex-direction:column;padding:20px 24px;overflow-y:auto;flex:1}
+.step{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.step-n{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#000;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}.step-title{font-size:14px;font-weight:500;margin-bottom:5px}
+.step-desc{font-size:12px;color:var(--text2);line-height:1.8}
+/* Sheet tab management */
+.stab-wrap{display:inline-flex;align-items:center;gap:0}
+.stab-rm{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text3);padding:0 2px;line-height:1;margin-left:3px}.stab-rm:hover{color:var(--red)}
+.stab-eye{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text3);padding:0 2px;line-height:1}.stab-eye:hover{color:var(--text2)}
+.stab.hidden{opacity:.4;text-decoration:line-through}
+/* Column hide/show */
+.col-vis{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text3);padding:2px 4px;line-height:1}.col-vis:hover{color:var(--text2)}
+.cth.hidden-col{min-width:24px!important;max-width:24px!important}
+.cth.hidden-col .cname,.cth.hidden-col .dz,.cth.hidden-col .cacts{display:none}
+.cth.hidden-col .col-vis-restore{display:flex}
+.col-vis-restore{display:none;writing-mode:vertical-rl;font-size:10px;color:var(--text3);cursor:pointer;padding:4px 2px;border:1px dashed var(--border);border-radius:var(--r);margin:2px;text-align:center;background:none}.col-vis-restore:hover{color:var(--text2)}
+#show-hidden-btn{display:none}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}#modal.open{display:flex}
+.mbox{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;width:440px;display:flex;flex-direction:column;gap:14px}
+.mbox h2{font-size:15px;font-weight:500}.mbox label{font-size:12px;color:var(--text2);display:block;margin-bottom:4px}.mbox input{width:100%;padding:7px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--mono);font-size:12px;outline:none}.mhint{font-size:11px;color:var(--text3);line-height:1.5;margin-top:4px}.mfoot{display:flex;gap:8px;justify-content:flex-end}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <div class="logo">🔗 OntoLink</div>
+    <button class="collapse-btn" id="collapse-btn" onclick="toggleSidebar()" title="Toggle sidebar">◀</button>
+    <span id="onto-label" style="font-size:11px;color:var(--text2);margin-left:12px">No ontology loaded</span>
+    <div class="sp"></div>
+    <span id="user-org" style="font-size:11px;color:var(--text2)"></span>
+    <div id="adot" class="dot"></div>
+    <span id="albl" style="font-size:11px;color:var(--text2)">checking...</span>
+    <input type="file" id="onto-input" accept=".ttl" style="display:none" onchange="uploadOntology(this)">
+    <button class="smbtn" onclick="document.getElementById('onto-input').click()">📖 Import Ontology</button>
+    <button class="smbtn" onclick="resetOntology()" title="Unload the current ontology">↺</button>
+    <button class="smbtn" onclick="openModal()">⚙ Settings</button>
+    <button class="smbtn" onclick="doSignOut()">Sign out</button>
+  </div>
+  <div id="body">
+    <div id="sidebar">
+      <h3>Ontology Properties</h3>
+      <input id="search" placeholder="Search..." oninput="renderProps()">
+      <div id="sel-bar">Selected: <span id="seln"></span> — click a column</div>
+      <div id="prop-list"></div>
+    </div>
+    <div id="main">
+      <div id="mhdr">
+        <button class="btn" onclick="document.getElementById('fi').click()">Add workbook</button>
+        <input type="file" id="fi" accept=".xlsx,.xls" multiple style="display:none" onchange="handleFiles(event)">
+        <div id="wbc"></div>
+        <button class="btn" id="suggest-all-btn" style="display:none;background:#d2992218;border-color:#d2992240;color:var(--amber)" onclick="suggestAll()">✦ Suggest all columns</button>
+        <span id="st"></span>
+      </div>
+      <div id="tabbar">
+        <button class="tb active" onclick="setTab('tag',this)">Tag Columns</button>
+        <button class="tb" onclick="setTab('serialize',this)">Serialize to RDF</button>
+        <button class="tb" onclick="setTab('query',this)">Query (SPARQL)</button>
+        <button class="tb" onclick="setTab('checks',this)">Consistency Checks</button>
+        <button class="tb" onclick="setTab('help',this)">📖 Help</button>
+        <div class="tbsp"></div>
+        <button class="smbtn" onclick="cloudSave()" title="Save to cloud">☁ Save</button>
+        <button class="smbtn" onclick="showSessionPicker()" title="Load from cloud">📂 My sessions</button>
+      </div>
+      <div id="stabs"></div>
+      <div id="api-key-banner" style="display:none;align-items:center;gap:10px;padding:8px 14px;background:#58a6ff12;border-bottom:1px solid #58a6ff30;flex-shrink:0;font-size:12px;color:var(--text2)">
+        <span>🔑 Add your Anthropic API key to unlock AI tagging and natural language queries — free to get, costs pennies to use.</span>
+        <button class="bb y" style="border-color:var(--blue);color:var(--blue)" onclick="openModal()">Add API key</button>
+        <a href="https://console.anthropic.com" target="_blank" style="font-size:11px;color:var(--text3)">Get one free →</a>
+      </div>
+      <div id="gdpr-banner" style="display:none;align-items:center;gap:10px;padding:8px 14px;background:#3fb95012;border-bottom:1px solid #3fb95030;flex-shrink:0;font-size:12px;color:var(--text2);flex-wrap:wrap">
+        <span>🍪 We store your API key locally in your browser. When AI features are used, column headers and sample values are sent to Anthropic's API — your full dataset never leaves your device. <a href="/privacy.html" target="_blank" style="color:var(--blue)">Privacy policy</a></span>
+        <button class="bb y" style="border-color:var(--green);color:var(--green);flex-shrink:0" onclick="acceptGDPR()">I understand</button>
+      </div>
+      <div id="banner">
+        AI can suggest tags for <strong><span id="bct">0</span> columns</strong> — review before applying.
+        <button class="bb y" onclick="suggestAll()">✦ Suggest all</button>
+        <button class="bb n" onclick="hideBanner()">Later</button>
+      </div>
+      <div id="review">
+        <div class="rvhdr">
+          <span style="font-size:11px;font-weight:500;color:var(--text2)" id="rvt">Suggestions</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn" style="font-size:11px;padding:3px 10px" onclick="acceptAll()">Accept all</button>
+            <button class="smbtn" onclick="hideReview()">✕</button>
+          </div>
+        </div>
+        <div id="rvlist"></div>
+      </div>
+      <div id="wbov"></div>
+      <div id="tab-tag">
+        <div id="empty">
+          <div class="ico">⬆</div>
+          <p style="font-size:13px">Add workbooks to start tagging</p>
+          <small style="font-size:11px;color:var(--text3)">Click "Add workbook" to load Excel files.<br>Each file is separate but queried together.</small>
+        </div>
+        <div id="swrap"></div>
+      </div>
+      <div id="tab-serialize">
+        <div class="tlbar">
+          <button class="btn p" onclick="doSerialize()">Generate Turtle RDF</button>
+          <button class="btn" onclick="copyTurtle()">Copy</button>
+          <button class="btn" onclick="dlTurtle()">Download .ttl</button>
+          <button class="btn" onclick="exportHXL()">Export active sheet</button>
+          <button class="btn" onclick="exportAll()">Export all sheets</button>
+          <span id="trict" style="font-size:11px;color:var(--text2)"></span>
+        </div>
+        <div class="tlbar" style="border-top:1px solid var(--border);padding-top:10px;margin-top:2px">
+          <span style="font-size:12px;color:var(--text2);margin-right:8px">Export as feed:</span>
+          <select id="feed-class" style="background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px"></select>
+          <select id="feed-format" style="background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:4px;padding:5px 8px;font-size:12px"></select>
+          <button class="btn p" onclick="downloadFeed()">⬇ Download feed</button>
+          <span id="feed-status" style="font-size:11px;color:var(--text2)"></span>
+        </div>
+        <div id="turtleout">Click "Generate Turtle RDF" to serialize your tagged data.</div>
+      </div>
+      <div id="tab-query">
+        <div class="nlrow">
+          <input class="nli" id="nl" placeholder="e.g. How many beneficiaries per city?" onkeydown="if(event.key==='Enter')runQuery()">
+          <button class="btn p" id="runbtn" onclick="runQuery()">Run Query</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+          <button class="btn" id="export-results-btn" style="display:none" onclick="exportQueryResults()">⬇ Export to Excel</button>
+          <span id="result-count" style="font-size:11px;color:var(--text2)"></span>
+        </div>
+        <div id="qres" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px">
+          <div class="hint"><b>Natural Language SPARQL</b><br>Tag your columns first, then ask questions in plain English.<br><br><i>"How many beneficiaries per city?"</i> · <i>"List distributions by project"</i> · <i>"Show affected females by location"</i></div>
+        </div>
+      </div>
+      <div id="tab-checks">
+        <div class="tlbar">
+          <button class="btn p" onclick="runChecks()">Run consistency checks</button>
+          <span style="font-size:11px;color:var(--text2)">Checks for type errors, empty columns, duplicate IDs, cross-sheet mismatches</span>
+        </div>
+        <div id="chkres" style="overflow-y:auto;flex:1">
+          <div class="hint">Tag columns first, then run checks to find data quality issues.</div>
+        </div>
+      </div>
+
+      <div id="tab-help">
+        <div style="max-width:720px;padding:20px 0;overflow-y:auto">
+          <h2 style="font-size:18px;font-weight:500;margin-bottom:4px">How to use HXL Ontology Tagger</h2>
+          <p style="font-size:12px;color:var(--text2);margin-bottom:24px">This tool helps you label your Excel data so that different organizations can share and compare it — even if their files look different.</p>
+
+          <div class="step"><div class="step-n">1</div><div class="step-body">
+            <div class="step-title">Load your Excel file</div>
+            <div class="step-desc">Click <strong>Add workbook</strong> at the top left. Select your <code>.xlsx</code> file. You can load multiple files from different organizations — they will all be connected together automatically.</div>
+          </div></div>
+
+          <div class="step"><div class="step-n">2</div><div class="step-body">
+            <div class="step-title">Pick which sheets to use</div>
+            <div class="step-desc">After loading, you will see sheet tabs at the top (e.g. NeedsAssessment, Projects, Inventory). Click a tab to view that sheet. To <strong>remove a sheet</strong> you do not need, click the <strong>🗑 trash icon</strong> on its tab. To <strong>hide a sheet</strong> from queries without deleting it, click the <strong>👁 eye icon</strong>.</div>
+          </div></div>
+
+          <div class="step"><div class="step-n">3</div><div class="step-body">
+            <div class="step-title">Tag your columns</div>
+            <div class="step-desc">Each column in your sheet needs a label from the ontology (the list on the left). This tells the system what each column <em>means</em>.<br><br>
+            <strong>Two ways to tag:</strong><br>
+            • <strong>Click to tag:</strong> Click a property name in the left panel (e.g. "Beneficiary Name"), then click the grey box under the matching column.<br>
+            • <strong>AI suggest:</strong> Click the <strong>✦ suggest</strong> button under any column. The AI will read the column header and suggest the best match automatically.<br>
+            • <strong>Suggest all at once:</strong> Click the yellow <strong>"✦ Suggest all"</strong> banner that appears after loading. The AI analyzes every column in one go — you just review and accept.<br><br>
+            To <strong>remove a tag</strong>, click the <strong>✕</strong> on the tag badge. To <strong>hide a column</strong> you do not need, click the <strong>👁</strong> button on that column.</div>
+          </div></div>
+
+          <div class="step"><div class="step-n">4</div><div class="step-body">
+            <div class="step-title">Save your work</div>
+            <div class="step-desc">Click <strong>💾 Save</strong> in the tab bar. This downloads a small <code>.json</code> file. Next time you open the app and load the same Excel file, click <strong>📂 Load</strong> to restore all your tags instantly — no need to redo the work.</div>
+          </div></div>
+
+          <div class="step"><div class="step-n">5</div><div class="step-body">
+            <div class="step-title">Export your tagged data</div>
+            <div class="step-desc">Go to the <strong>Serialize to RDF</strong> tab.<br><br>
+            • Click <strong>Generate Turtle RDF</strong> to convert your tagged data into a format that computers can reason about.<br>
+            • Click <strong>Export active sheet</strong> to download your Excel file with the HXL tags added as a second row — this is the standard format used by UN agencies and NGOs worldwide.<br>
+            • Click <strong>Export all sheets</strong> to download every tagged sheet at once.</div>
+          </div></div>
+
+          <div class="step"><div class="step-n">6</div><div class="step-body">
+            <div class="step-title">Ask questions about your data</div>
+            <div class="step-desc">Go to the <strong>Query (SPARQL)</strong> tab. Type a question in plain English and press Enter. Examples:<br><br>
+            <em>"How many beneficiaries are there in each city?"</em><br>
+            <em>"Which projects have the highest number of displaced people?"</em><br>
+            <em>"List all deliveries with status pending"</em><br><br>
+            The system generates a technical SPARQL query automatically and shows you the results in a table. If you loaded multiple workbooks, it queries across all of them at once.</div>
+          </div></div>
+
+          <div style="margin-top:28px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r)">
+            <div style="font-size:12px;font-weight:500;margin-bottom:8px">Common questions</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.9">
+              <strong style="color:var(--text)">What is HXL?</strong> HXL (Humanitarian Exchange Language) is a simple labeling system used by the UN and NGOs to make spreadsheets readable by machines. It adds hashtag labels like <code>#beneficiary +name</code> to column headers.<br>
+              <strong style="color:var(--text)">Do I need an API key?</strong> Only for AI features (auto-suggest and natural language queries). Manual tagging and export work without one.<br>
+              <strong style="color:var(--text)">Is my data private?</strong> Your data stays on your computer. Only column headers and a few sample values are sent to the AI — never the full dataset.<br>
+              <strong style="color:var(--text)">What if a column has no match?</strong> Leave it untagged. Only tagged columns are included in the serialization and queries.
+            </div>
+          </div>
+
+          <!-- Ontology Reference -->
+          <div style="margin-top:28px">
+            <h2 style="font-size:16px;font-weight:500;margin-bottom:4px">Ontology Reference</h2>
+            <p style="font-size:12px;color:var(--text2);margin-bottom:18px">This explains what each category and property in the ontology means, and when to use it.</p>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#3fb95018;border-color:#3fb95040;color:#3fb950">Project</div>
+              <div class="ont-desc">Information about an aid project or programme — its name, sector, and how many people it plans to reach.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#project +code</code><span>Unique identifier for the project (e.g. NRC-2024-001)</span></div>
+                <div class="ont-row"><code>#project +name</code><span>Full name of the project</span></div>
+                <div class="ont-row"><code>#project +sector</code><span>Which humanitarian sector it belongs to (WASH, Shelter, Food, etc.)</span></div>
+                <div class="ont-row"><code>#project +targeted</code><span>Number of people the project plans to reach</span></div>
+                <div class="ont-row"><code>#beneficiary +total</code><span>Total number of beneficiaries enrolled</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#58a6ff18;border-color:#58a6ff40;color:#58a6ff">Distribution</div>
+              <div class="ont-desc">A distribution event — when aid items are handed out to people at a specific time and place.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#distribution +code</code><span>Unique ID for this distribution event</span></div>
+                <div class="ont-row"><code>#distribution +status</code><span>Whether it is planned, ongoing, or completed</span></div>
+                <div class="ont-row"><code>#distribution +start +date</code><span>Date the distribution started</span></div>
+                <div class="ont-row"><code>#distribution +end +date</code><span>Date the distribution ended</span></div>
+                <div class="ont-row"><code>#distribution +q</code><span>Quantity of items distributed</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#bc8cff18;border-color:#bc8cff40;color:#bc8cff">Delivery</div>
+              <div class="ont-desc">The logistics of getting aid items to a distribution point — transport, dates, and status.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#delivery +code</code><span>Unique ID for this delivery</span></div>
+                <div class="ont-row"><code>#delivery +date</code><span>Date of the delivery</span></div>
+                <div class="ont-row"><code>#delivery +status</code><span>Pending, in transit, delivered, etc.</span></div>
+                <div class="ont-row"><code>#delivery +channel</code><span>How it was transported (truck, air, boat, etc.)</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#d2992218;border-color:#d2992240;color:#d29922">Needs Assessment</div>
+              <div class="ont-desc">Data collected when assessing a person's needs — before they are confirmed as a beneficiary. Use this for survey and registration data.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#needsAssessment +code</code><span>ID of the assessment form or session</span></div>
+                <div class="ont-row"><code>#respondee +name</code><span>Name of the person being assessed</span></div>
+                <div class="ont-row"><code>#respondee +code</code><span>Unique ID assigned to the respondee</span></div>
+                <div class="ont-row"><code>#respondee +gender</code><span>Gender of the respondee</span></div>
+                <div class="ont-row"><code>#respondee +hh</code><span>Household size (number of people in the household)</span></div>
+                <div class="ont-row"><code>#respondee +severity</code><span>How severe their situation is (low / medium / high / critical)</span></div>
+                <div class="ont-row"><code>#respondee +score</code><span>Numeric vulnerability score</span></div>
+                <div class="ont-row"><code>#respondee +need +name</code><span>What kind of help they need (food, shelter, medical, etc.)</span></div>
+                <div class="ont-row"><code>#respondee +infants</code><span>Number of infants (0-2 years) in the household</span></div>
+                <div class="ont-row"><code>#respondee +children</code><span>Number of children (3-17 years) in the household</span></div>
+                <div class="ont-row"><code>#respondee +elderly</code><span>Number of elderly (60+) in the household</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#f778ba18;border-color:#f778ba40;color:#f778ba">Benefit Contract</div>
+              <div class="ont-desc">A confirmed aid recipient — someone who has been approved and enrolled in an aid programme. Use this for your beneficiary lists.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#beneficiary +code</code><span>Unique ID for this beneficiary</span></div>
+                <div class="ont-row"><code>#beneficiary +name</code><span>Full name of the beneficiary</span></div>
+                <div class="ont-row"><code>#beneficiary +gender</code><span>Gender of the beneficiary</span></div>
+                <div class="ont-row"><code>#beneficiary +hh</code><span>Household size</span></div>
+                <div class="ont-row"><code>#benefitContract +code</code><span>ID of the aid contract or registration</span></div>
+                <div class="ont-row"><code>#benefitContract +start +date</code><span>Date the aid entitlement started</span></div>
+                <div class="ont-row"><code>#benefitContract +end +date</code><span>Date the aid entitlement ends</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#f8514918;border-color:#f8514940;color:#f85149">Impact Report</div>
+              <div class="ont-desc">Aggregated numbers about a crisis — how many people were killed, injured, displaced, or are in need. Use this for situation reports and 5Ws data.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#crisis +name</code><span>Name of the crisis or emergency</span></div>
+                <div class="ont-row"><code>#crisis +type</code><span>Type of crisis (conflict, flood, earthquake, etc.)</span></div>
+                <div class="ont-row"><code>#affected</code><span>Total number of people affected</span></div>
+                <div class="ont-row"><code>#affected +inneed</code><span>People in need of humanitarian assistance</span></div>
+                <div class="ont-row"><code>#affected +displaced</code><span>Internally displaced persons (IDPs)</span></div>
+                <div class="ont-row"><code>#affected +refugee</code><span>Refugees who have crossed a border</span></div>
+                <div class="ont-row"><code>#affected +killed</code><span>Confirmed deaths</span></div>
+                <div class="ont-row"><code>#affected +injured</code><span>People injured</span></div>
+                <div class="ont-row"><code>#affected +targeted</code><span>People targeted for assistance</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#39d2f218;border-color:#39d2f240;color:#39d2f2">Organization</div>
+              <div class="ont-desc">An NGO, UN agency, government body, or any organization involved in the response.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#org +code</code><span>Short code for the organization (e.g. NRC, WFP, UNHCR)</span></div>
+                <div class="ont-row"><code>#org +name</code><span>Full name of the organization</span></div>
+                <div class="ont-row"><code>#org +sector</code><span>Which sector they work in</span></div>
+                <div class="ont-row"><code>#org +type</code><span>NGO, UN, government, donor, etc.</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#7ee78718;border-color:#7ee78740;color:#7ee787">Location</div>
+              <div class="ont-desc">Geographic information at any level — from country down to neighbourhood. Use the most specific level available in your data.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#country +name</code><span>Country name (e.g. Palestine, Jordan, Lebanon)</span></div>
+                <div class="ont-row"><code>#adm1 +name</code><span>First administrative level — governorate or province</span></div>
+                <div class="ont-row"><code>#adm2 +name</code><span>Second administrative level — district</span></div>
+                <div class="ont-row"><code>#city +name</code><span>City or town name</span></div>
+                <div class="ont-row"><code>#area +name</code><span>Neighbourhood or local area</span></div>
+                <div class="ont-row"><code>#geo +lat</code><span>GPS latitude coordinate</span></div>
+                <div class="ont-row"><code>#geo +long</code><span>GPS longitude coordinate</span></div>
+              </div>
+            </div>
+
+            <div class="ont-group">
+              <div class="ont-title" style="background:#ffa65718;border-color:#ffa65740;color:#ffa657">Aid Item</div>
+              <div class="ont-desc">A specific item being distributed — food, non-food items, medicine, cash vouchers, etc.</div>
+              <div class="ont-table">
+                <div class="ont-row"><code>#item +code</code><span>Item code or SKU</span></div>
+                <div class="ont-row"><code>#item +name</code><span>Name of the item (e.g. Food basket, Hygiene kit)</span></div>
+                <div class="ont-row"><code>#item +type</code><span>Category of item (food, NFI, cash, etc.)</span></div>
+                <div class="ont-row"><code>#item +unit</code><span>Unit of measurement (kg, litres, pieces)</span></div>
+                <div class="ont-row"><code>#item +q</code><span>Quantity</span></div>
+                <div class="ont-row"><code>#sector +name</code><span>Humanitarian sector (WASH, Shelter, Food Security)</span></div>
+                <div class="ont-row"><code>#cluster +name</code><span>UN cluster coordinating the response for this item</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal">
+  <div class="mbox">
+    <h2>Anthropic API Key</h2>
+    <div>
+      <p style="font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:12px">
+        HumanitarianLink uses Claude AI for automatic column tagging and natural language queries.
+        You need your own API key — it takes 2 minutes to get one and costs less than €0.10 per session.
+      </p>
+      <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.8">
+        1. Go to <strong style="color:var(--blue)">console.anthropic.com</strong><br>
+        2. Sign up for a free account<br>
+        3. Click <strong>API Keys</strong> → <strong>Create Key</strong><br>
+        4. Paste it below — you get $5 free credit to start
+      </div>
+      <label style="font-size:12px;color:var(--text2);display:block;margin-bottom:5px">Your API Key</label>
+      <input type="password" id="akin" placeholder="sk-ant-...">
+      <div style="margin-top:10px;padding:8px 10px;background:#58a6ff10;border:1px solid #58a6ff30;border-radius:var(--r);font-size:11px;color:var(--text2);line-height:1.6">
+        🔒 <strong style="color:var(--text)">Privacy notice:</strong> When you use AI features, your column headers and a small sample of data values are sent to Anthropic's API to generate suggestions and queries. Your full dataset is never stored on our servers. Your API key is stored only in your browser. By using AI features you agree to <a href="/privacy.html" target="_blank" style="color:var(--blue)">our privacy policy</a> and <a href="https://www.anthropic.com/privacy" target="_blank" style="color:var(--blue)">Anthropic's privacy policy</a>.
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn p" onclick="saveKey()">Save & Test</button>
+    </div>
+  </div>
+</div>
+
+<div id="session-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center">
+  <div class="mbox" style="width:500px;max-height:80vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2>My Sessions</h2>
+      <button class="smbtn" onclick="closeSessionPicker()">✕</button>
+    </div>
+    <div style="margin-bottom:10px;display:flex;gap:8px">
+      <input id="session-name-input" placeholder="Session name (e.g. NRC Gaza Oct 2024)" style="flex:1;padding:7px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-family:var(--font);font-size:12px;outline:none">
+      <button class="btn p" onclick="cloudSaveNamed()">Save current</button>
+    </div>
+    <div id="session-list"><div style="font-size:12px;color:var(--text2);padding:10px 0">Loading sessions...</div></div>
+  </div>
+</div>
+<script>
+// ── Supabase ───────────────────────────────────────────────────────────────
+const SUPABASE_URL='https://dnriilwaraxhxpebjlys.supabase.co'
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRucmlpbHdhcmF4aHhwZWJqbHlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NDcxODksImV4cCI6MjA5ODEyMzE4OX0.08kkGcuiqE_zcWVlLlMTlF7CHF4U7OpjM0O090UdOZs'
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)
+let currentUser=null
+
+async function initAuth(){
+  const{data:{session}}=await sb.auth.getSession()
+  if(!session){
+    window.location.href='/login.html'
+    return
+  }
+  currentUser=session.user
+  const org=currentUser.user_metadata?.org_name||currentUser.email
+  document.getElementById('user-org').textContent=org
+}
+
+async function doSignOut(){
+  await sb.auth.signOut()
+  window.location.href='/login.html'
+}
+
+// ── Cloud save/load ────────────────────────────────────────────────────────
+async function cloudSave(){
+  if(!currentUser){ss("Not signed in.");return}
+  const name=`Auto-save ${new Date().toLocaleString()}`
+  await saveToCloud(name)
+}
+
+async function cloudSaveNamed(){
+  if(!currentUser){ss("Not signed in.");return}
+  const name=document.getElementById('session-name-input').value.trim()||`Session ${new Date().toLocaleString()}`
+  await saveToCloud(name)
+  closeSessionPicker()
+}
+
+async function saveToCloud(name){
+  if(!currentUser)return
+  ss("Saving to cloud…")
+  // Serialize hidden sets to arrays
+  const hsh={};Object.entries(HSH).forEach(([k,v])=>hsh[k]=[...v])
+  const hcl={};Object.entries(HCL).forEach(([k,v])=>hcl[k]=[...v])
+  const payload={
+    user_id:currentUser.id,
+    name,
+    workbooks:WBS,
+    tags:TAGS,
+    hidden_sheets:hsh,
+    hidden_cols:hcl
+  }
+  const{error}=await sb.from('sessions').insert(payload)
+  if(error){ss("Save failed: "+error.message);return}
+  ss(`Saved as "${name}"`)
+}
+
+async function showSessionPicker(){
+  document.getElementById('session-modal').style.display='flex'
+  loadSessionList()
+}
+function closeSessionPicker(){document.getElementById('session-modal').style.display='none'}
+
+async function loadSessionList(){
+  if(!currentUser)return
+  const el=document.getElementById('session-list')
+  el.innerHTML=`<div style="font-size:12px;color:var(--text2);padding:8px 0">Loading…</div>`
+  const{data,error}=await sb.from('sessions').select('id,name,updated_at,workbooks').eq('user_id',currentUser.id).order('updated_at',{ascending:false})
+  if(error||!data?.length){
+    el.innerHTML=`<div style="font-size:12px;color:var(--text2);padding:8px 0">No saved sessions yet. Tag some data and click "Save current".</div>`
+    return
+  }
+  el.innerHTML=data.map(s=>{
+    const wbs=Array.isArray(s.workbooks)?s.workbooks.map(w=>w.filename).join(', '):'—'
+    const dt=new Date(s.updated_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})
+    return`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r);margin-bottom:6px">
+      <div>
+        <div style="font-size:13px;font-weight:500">${esc(s.name)}</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:2px">${esc(wbs)} · ${dt}</div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn" style="font-size:11px;padding:3px 10px" onclick="loadFromCloud('${s.id}')">Load</button>
+        <button class="smbtn" style="color:var(--red)" onclick="deleteSession('${s.id}')">🗑</button>
+      </div>
+    </div>`
+  }).join('')
+}
+
+async function loadFromCloud(id){
+  const{data,error}=await sb.from('sessions').select('*').eq('id',id).single()
+  if(error||!data){ss("Could not load session.");return}
+  WBS=data.workbooks||[]
+  TAGS=data.tags||{}
+  // Restore hidden sets
+  HSH={}
+  Object.entries(data.hidden_sheets||{}).forEach(([k,v])=>HSH[k]=new Set(v))
+  HCL={}
+  Object.entries(data.hidden_cols||{}).forEach(([k,v])=>HCL[k]=new Set(v.map(Number)))
+  WBN=WBS.length
+  AWB=0;ASH=0
+  if(WBS.length){
+    document.getElementById('empty').style.display='none'
+    document.getElementById('swrap').style.display='block'
+  }
+  reAll()
+  closeSessionPicker()
+  ss(`Loaded "${data.name}"`)
+}
+
+async function deleteSession(id){
+  if(!confirm("Delete this session?"))return
+  await sb.from('sessions').delete().eq('id',id)
+  loadSessionList()
+}
+
+const API=window.location.hostname==='localhost'?'http://localhost:8000/api':'/api';
+let WBS=[],TAGS={},AWB=0,ASH=0,WBN=0,SEL=null,PEND=[],TTL="",EXP={},ST;
+let HSH={},HCL={};
+let lastQueryResult=null;
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function tk(id,n){return id+"__"+n}
+function cWb(){return WBS[AWB]}
+function cSh(){return cWb()?.sheets[ASH]}
+function cKey(){const w=cWb(),s=cSh();return w&&s?tk(w.id,s.name):null}
+function cTags(){const k=cKey();return k?TAGS[k]||{}:{}}
+function isShHidden(wbId,sName){return HSH[wbId]?.has(sName)}
+function isColHidden(key,ci){return HCL[key]?.has(ci)}
+function setTag(ci,p){const k=cKey();if(!k)return;if(!TAGS[k])TAGS[k]={};TAGS[k][ci]=p;reAll()}
+function delTag(ci){const k=cKey();if(!k)return;if(TAGS[k])delete TAGS[k][ci];reAll()}
+function reAll(){
+  renderChips();renderOv();renderSTabs();renderSheet();
+  const btn=document.getElementById("suggest-all-btn");
+  if(btn)btn.style.display=WBS.length?"inline-flex":"none";
+}
+function ss(m){const e=document.getElementById("st");e.textContent=m;e.style.opacity=1;clearTimeout(ST);ST=setTimeout(()=>e.style.opacity=0,4000)}
+function flat(){
+  const sheets=[],ct={};
+  WBS.forEach(w=>w.sheets.forEach(s=>{
+    if(isShHidden(w.id,s.name))return;
+    const fn=tk(w.id,s.name);
+    const hiddenSet=HCL[fn]||new Set();
+    const hd=s.data[0]||[];
+    const visibleCols=hd.map((_,i)=>i).filter(i=>!hiddenSet.has(i));
+    const filteredData=s.data.map(row=>visibleCols.map(i=>row[i]));
+    const origTags=TAGS[fn]||{};
+    const remapped={};
+    visibleCols.forEach((origIdx,newIdx)=>{if(origTags[origIdx])remapped[newIdx]=origTags[origIdx]});
+    sheets.push({name:fn,data:filteredData});
+    if(Object.keys(remapped).length)ct[fn]=remapped;
+  }));
+  return{sheets,columnTags:ct}
+}
+
+// Sidebar collapse
+function toggleSidebar(){
+  const body=document.getElementById("body");
+  const btn=document.getElementById("collapse-btn");
+  const collapsed=body.classList.toggle("collapsed");
+  btn.textContent=collapsed?"▶":"◀";
+  btn.title=collapsed?"Show sidebar":"Hide sidebar";
+}
+
+// Find ontology property by exact HXL tag string
+function findPropByHXL(hxl){ return null; }  // legacy noop — kept in case old code references it
+function autoDetectHXL(wbId,sheets){ return 0; }  // legacy noop
+
+// Export query results to Excel with HXL row
+function exportQueryResults(){
+  if(!lastQueryResult||!lastQueryResult.rows.length){ss("No results to export.");return}
+  const{columns,rows,question}=lastQueryResult;
+  // Try to find HXL tags for each column by matching to ontology
+  const hxlRow=columns.map(col=>{
+    const prop=Object.values(ONT).flat().find(p=>
+      p.uri.toLowerCase()===col.toLowerCase()||
+      p.label.toLowerCase().replace(/\s+/g,"")===col.toLowerCase().replace(/\s+/g,"")
+    );
+    return prop?prop.uri:"";
+  });
+  const wb=XLSX.utils.book_new();
+  const wsData=[columns,hxlRow,...rows];
+  const ws=XLSX.utils.aoa_to_sheet(wsData);
+  XLSX.utils.book_append_sheet(wb,ws,"Query Results");
+  const fname=`query_results_${new Date().toISOString().slice(0,10)}.xlsx`;
+  XLSX.writeFile(wb,fname);
+  ss(`Exported ${rows.length} rows to ${fname}`);
+}
+
+// ── Dynamic ontology (populated from /api/ontology) ─────────────────────────
+let ONT = {};      // { className: [ { label, uri, range, comment, class } ] }
+let DC = {};       // { className: colorHex } — auto-assigned per class
+let ONTO_META = { name: null, class_count: 0, property_count: 0, link_count: 0 };
+
+// Auto-assign a color per class. Deterministic (same class = same color across reloads).
+const PALETTE = ["#58a6ff","#3fb950","#bc8cff","#d29922","#f778ba","#f85149",
+                 "#39d2f2","#7ee787","#ffa657","#818cf8","#2dd4bf","#c9b1ff",
+                 "#a5b4fc","#fbbf24","#f472b6","#22d3ee","#fb923c","#a3e635"];
+function colorFor(name){
+  let h=0; for(let i=0;i<name.length;i++) h=(h*31+name.charCodeAt(i))>>>0;
+  return PALETTE[h % PALETTE.length];
+}
+
+async function loadOntology(){
+  try{
+    const r = await fetch("/api/ontology", { cache: "no-store" });
+    const cfg = await r.json();
+    ONT = cfg.groups || {};
+    ONTO_META = {
+      name: cfg.name,
+      class_count: cfg.class_count || 0,
+      property_count: cfg.property_count || 0,
+      link_count: cfg.link_count || 0,
+    };
+    DC = {};
+    Object.keys(ONT).forEach(g => { DC[g] = colorFor(g); });
+    // Update the sidebar header if it exists
+    const h = document.getElementById("onto-label");
+    if (h) h.textContent = ONTO_META.name
+      ? `${ONTO_META.name} · ${ONTO_META.property_count} properties`
+      : "No ontology loaded";
+    renderProps();
+    populateFeedOptions();
+  } catch(e) {
+    console.error("Failed to load ontology:", e);
+  }
+}
+
+async function uploadOntology(input){
+  const f = input.files && input.files[0];
+  input.value = "";
+  if (!f) return;
+  if (!f.name.toLowerCase().endsWith(".ttl")) {
+    ss("Please upload a .ttl file."); return;
+  }
+  ss(`Loading ontology "${f.name}"…`);
+  const fd = new FormData(); fd.append("file", f);
+  try {
+    const r = await fetch("/api/ontology/upload", { method:"POST", body: fd });
+    const d = await r.json();
+    if (!r.ok) { ss(`Ontology error: ${d.detail || "unknown"}`); return; }
+    ss(`Loaded "${d.name}" — ${d.class_count} classes, ${d.property_count} properties.`);
+    // Clear any tags since they refer to the old ontology's URIs
+    TAGS = {};
+    await loadOntology();
+    reAll();
+  } catch(e) {
+    ss(`Ontology error: ${e.message}`);
+  }
+}
+
+async function resetOntology(){
+  if (!confirm("Unload the current ontology? Your tags will be cleared.")) return;
+  await fetch("/api/ontology/reset", { method: "POST" });
+  TAGS = {};
+  await loadOntology();
+  reAll();
+  ss("Ontology unloaded.");
+}
+
+async function checkStatus(){
+  const key=localStorage.getItem('hl_api_key')||'';
+  const dot=document.getElementById("adot"),lbl=document.getElementById("albl");
+  if(key){
+    dot.classList.add("ok");lbl.textContent="AI ready";
+    document.getElementById("api-key-banner").style.display="none";
+  }else{
+    dot.classList.remove("ok");lbl.textContent="API key needed";
+    document.getElementById("api-key-banner").style.display="flex";
+  }
+}
+
+function getApiHeaders(extra={}){
+  const key=localStorage.getItem('hl_api_key')||'';
+  return{"Content-Type":"application/json","X-API-Key":key,...extra};
+}
+function openModal(){
+  const saved=localStorage.getItem('hl_api_key')||'';
+  const input=document.getElementById("akin");
+  if(input)input.value=saved;
+  document.getElementById("modal").classList.add("open");
+}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function saveKey(){
+  const input=document.getElementById("akin");
+  if(!input)return;
+  const k=input.value.trim();
+  if(!k){alert("Please paste your API key first.");return;}
+  localStorage.setItem('hl_api_key',k);
+  checkStatus();
+  closeModal();
+  alert("API key saved! You can now use AI features.");
+}
+function setTab(t,btn){document.querySelectorAll(".tb").forEach(b=>b.classList.remove("active"));btn.classList.add("active");["tag","serialize","query","checks","help"].forEach(x=>{const el=document.getElementById("tab-"+x);if(el)el.style.display=x===t?"flex":"none"})}
+function renderProps(){
+  const q = document.getElementById("search").value.toLowerCase();
+  const c = document.getElementById("prop-list");
+  c.innerHTML = "";
+
+  const entries = Object.entries(ONT);
+  if (!entries.length) {
+    c.innerHTML = `<div style="padding:20px 12px;font-size:12px;color:var(--text2);line-height:1.6">
+      No ontology loaded.<br><br>
+      Click <strong>Import Ontology</strong> (top-right) to upload a Turtle (.ttl) file.
+      The properties panel will populate automatically based on the classes and data properties in your ontology.
+    </div>`;
+    return;
+  }
+
+  entries.forEach(([cls, props]) => {
+    const f = q
+      ? props.filter(p =>
+          (p.label || "").toLowerCase().includes(q) ||
+          (p.uri || "").toLowerCase().includes(q))
+      : props;
+    if (!f.length) return;
+    const col = DC[cls] || "#888";
+    const open = EXP[cls] !== false;
+    const g = document.createElement("div");
+    const h = document.createElement("div");
+    h.className = "dh";
+    h.innerHTML = `<div class="dd" style="background:${col}"></div><span class="dn">${esc(cls)}</span><span class="dc">${f.length}</span>`;
+    h.onclick = () => { EXP[cls] = !open; renderProps(); };
+    g.appendChild(h);
+    if (open || q) {
+      f.forEach(prop => {
+        const p = { ...prop, domain: cls, class: prop.class || cls };
+        const i = document.createElement("div");
+        i.className = "pi" + (SEL?.uri === prop.uri ? " sel" : "");
+        i.style.borderLeftColor = col;
+        i.innerHTML = `<div class="pl">${esc(prop.label)}</div><div class="ph">${esc(prop.uri)}</div>`;
+        i.onclick = () => {
+          SEL = p;
+          document.getElementById("sel-bar").style.display = "block";
+          document.getElementById("seln").textContent = prop.label;
+          ss(`"${prop.label}" selected — click a column`);
+          renderProps();
+        };
+        i.draggable = true;
+        i.addEventListener("dragstart", () => SEL = p);
+        g.appendChild(i);
+      });
+    }
+    c.appendChild(g);
+  });
+}
+async function handleFiles(e){
+  const files=Array.from(e.target.files);e.target.value="";if(!files.length)return;
+  for(const f of files){
+    ss(`Uploading ${f.name}…`);
+    const form=new FormData();form.append("file",f);
+    try{
+      const r=await fetch(`${API}/upload`,{method:"POST",body:form});
+      if(!r.ok)throw new Error(await r.text());
+      const d=await r.json();
+      const id=`wb${WBN++}`;
+      WBS.push({id,filename:f.name,sheets:d.sheets});
+      // Auto-detect HXL tags already in the file
+      const detected=autoDetectHXL(id,d.sheets);
+      if(detected>0)ss(`Loaded "${f.name}" — auto-tagged ${detected} columns from HXL headers`);
+      else ss(`Loaded "${f.name}" — ${d.sheets.length} sheet(s)`);
+    }catch(err){ss(`Failed: ${err.message}`)}
+  }
+  if(!WBS.length)return;
+  AWB=WBS.length-1;ASH=0;
+  document.getElementById("empty").style.display="none";
+  document.getElementById("swrap").style.display="block";
+  reAll();
+  // Only show banner for untagged columns
+  const untagged=WBS.reduce((n,w)=>n+w.sheets.reduce((m,s)=>{
+    const key=tk(w.id,s.name);const tot=s.data[0]?.length||0;
+    const tagged=Object.keys(TAGS[key]||{}).length;return m+(tot-tagged);
+  },0),0);
+  if(untagged>0){
+    document.getElementById("bct").textContent=untagged;
+    document.getElementById("banner").style.display="flex";
+  }
+}
+function renderChips(){const c=document.getElementById("wbc");c.innerHTML=WBS.map((w,i)=>{const n=w.sheets.reduce((t,s)=>t+Object.keys(TAGS[tk(w.id,s.name)]||{}).length,0);return`<div class="wbchip ${i===AWB?"active":""}" onclick="switchWb(${i})"><span class="wcn" title="${esc(w.filename)}">${esc(w.filename)}</span>${n?`<span class="wbdg">${n}</span>`:""}<button class="wbrm" onclick="event.stopPropagation();removeWb(${i})">✕</button></div>`}).join("")}
+function switchWb(i){AWB=i;ASH=0;reAll()}
+function removeWb(i){if(!confirm(`Remove "${WBS[i].filename}"?`))return;WBS[i].sheets.forEach(s=>delete TAGS[tk(WBS[i].id,s.name)]);WBS.splice(i,1);AWB=Math.max(0,Math.min(AWB,WBS.length-1));ASH=0;if(!WBS.length){document.getElementById("empty").style.display="flex";document.getElementById("swrap").style.display="none";document.getElementById("wbov").style.display="none";document.getElementById("stabs").style.display="none"}reAll()}
+function renderOv(){const el=document.getElementById("wbov");if(!WBS.length){el.style.display="none";return}el.style.display="block";const tot=WBS.reduce((n,w)=>n+w.sheets.reduce((m,s)=>m+Object.keys(TAGS[tk(w.id,s.name)]||{}).length,0),0);let h=`<div style="font-size:11px;color:var(--text2);margin-bottom:6px">${WBS.length} workbook(s) · ${tot} columns tagged · all queried together</div><div class="wbgrid">`;WBS.forEach((w,i)=>{const n=w.sheets.reduce((t,s)=>t+Object.keys(TAGS[tk(w.id,s.name)]||{}).length,0);const to=w.sheets.reduce((t,s)=>t+(s.data[0]?.length||0),0);const p=to?Math.round(n/to*100):0;const fc=p===100?"var(--green)":p>0?"var(--amber)":"var(--border2)";h+=`<div class="wbcard ${i===AWB?"active":""}" onclick="switchWb(${i})"><div class="wcname" title="${esc(w.filename)}">${esc(w.filename)}</div><div class="wcmeta">${w.sheets.length} sheet(s) · ${n}/${to} cols</div><div class="wcbar"><div class="wcfill" style="width:${p}%;background:${fc}"></div></div></div>`});el.innerHTML=h+"</div>"}
+function renderSTabs(){
+  const w=cWb();
+  const el=document.getElementById("stabs");
+  if(!w){el.style.display="none";return}
+  el.style.display="block";
+  el.innerHTML=w.sheets.map((s,i)=>{
+    const hidden=isShHidden(w.id,s.name);
+    const n=Object.keys(TAGS[tk(w.id,s.name)]||{}).length;
+    const tot=s.data[0]?.length||0;
+    const badge=n?`<span style="font-size:10px;background:#3fb95022;color:var(--green);padding:1px 5px;border-radius:8px;margin-left:4px">${n}/${tot}</span>`:"";
+    const eyeTitle=hidden?"Show in queries":"Hide from queries";
+    const eyeIcon=hidden?"👁‍🗨":"👁";
+    return `<span class="stab-wrap">
+      <button class="stab ${i===ASH?"active":""} ${hidden?"hidden":""}" data-shi="${i}" data-action="switch">${esc(s.name)}${badge}</button>
+      <button class="stab-eye" title="${eyeTitle}" data-wbid="${w.id}" data-sname="${i}" data-action="eye">${eyeIcon}</button>
+      <button class="stab-rm" title="Delete sheet" data-shi="${i}" data-action="del">🗑</button>
+    </span>`;
+  }).join("");
+
+  // Single delegated listener
+  el.onclick=function(e){
+    const btn=e.target.closest("[data-action]");
+    if(!btn)return;
+    const action=btn.dataset.action;
+    if(action==="switch"){ASH=parseInt(btn.dataset.shi);renderSTabs();renderSheet()}
+    if(action==="eye"){
+      const wb=cWb();if(!wb)return;
+      const si=parseInt(btn.dataset.sname);
+      const sname=wb.sheets[si]?.name;if(!sname)return;
+      if(!HSH[wb.id])HSH[wb.id]=new Set();
+      if(HSH[wb.id].has(sname))HSH[wb.id].delete(sname);else HSH[wb.id].add(sname);
+      renderSTabs();
+      ss(isShHidden(wb.id,sname)?`"${sname}" hidden from queries`:`"${sname}" visible in queries`);
+    }
+    if(action==="del"){
+      const si=parseInt(btn.dataset.shi);
+      const wb=cWb();if(!wb)return;
+      const s=wb.sheets[si];if(!s)return;
+      if(!confirm(`Delete sheet "${s.name}"?\nThis cannot be undone.`))return;
+      delete TAGS[tk(wb.id,s.name)];
+      if(HSH[wb.id])HSH[wb.id].delete(s.name);
+      wb.sheets.splice(si,1);
+      ASH=Math.max(0,Math.min(ASH,wb.sheets.length-1));
+      reAll();
+      ss(`Sheet "${s.name}" deleted.`);
+    }
+  };
+}
+function switchSh(i){ASH=i;renderSTabs();renderSheet()}
+
+function renderSheet(){
+  const wrap=document.getElementById("swrap");
+  const sh=cSh();
+  if(!sh){wrap.innerHTML="";return}
+  const t=cTags();
+  const key=cKey();
+  const hiddenCols=HCL[key]||new Set();
+  const hd=sh.data[0]||[];
+  const rows=sh.data.slice(1,9);
+  const hasHidden=hiddenCols.size>0;
+
+  let h=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;margin-bottom:6px;flex-wrap:wrap">`;
+  h+=`<span style="font-size:11px;color:var(--text3)">${hd.length-hiddenCols.size} of ${hd.length} columns shown</span>`;
+  if(hasHidden)h+=`<button class="btn" style="font-size:11px;padding:3px 10px" id="show-all-btn">👁 Restore ${hiddenCols.size} hidden column(s)</button>`;
+  h+=`</div>`;
+
+  h+=`<table class="tbl"><thead><tr>`;
+  hd.forEach((hh,ci)=>{
+    if(hiddenCols.has(ci)){
+      h+=`<th class="cth hidden-col"><button class="col-vis-restore" data-ci="${ci}" data-action="showcol" title="Restore ${esc(String(hh))}">↕<br>${esc(String(hh||ci).slice(0,8))}</button></th>`;
+      return;
+    }
+    const tag=t[ci];
+    const col=tag?DC[tag.class||tag.domain]||"#888":null;
+    h+=`<th class="cth">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:2px">
+        <div class="cname" title="${esc(String(hh))}">${esc(String(hh||"(empty)"))}</div>
+        <div style="display:flex;gap:1px;flex-shrink:0">
+          <button class="col-vis" data-ci="${ci}" data-action="hidecol" title="Hide column">👁</button>
+          <button class="col-vis" data-ci="${ci}" data-action="delcol" title="Delete column permanently" style="color:var(--red);opacity:.5">🗑</button>
+        </div>
+      </div>
+      <div class="dz ${tag?"tagged":""}" data-ci="${ci}" data-action="applyprop" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="event.preventDefault();this.classList.remove('over');applyPropCI(${ci})">`;
+    if(tag){
+      const bg=col+"20",bd=col+"50";
+      h+=`<div class="tagb" style="background:${bg};border-color:${bd}">
+        <div class="tbi">
+          <div class="tbl2" style="color:${col}">${esc(tag.label||tag.uri)}</div>
+          <div class="tbh" style="color:${col}">${esc(tag.uri)}</div>
+        </div>
+        <button class="tgrm" data-ci="${ci}" data-action="deltag" style="color:${col}">✕</button>
+      </div>`;
+    }else{
+      h+=`<div class="dzh">click to apply selected tag</div>`;
+    }
+    h+=`</div>
+      <div class="cacts"><button class="aibtn" data-ci="${ci}" data-action="aione">✦ suggest</button></div>
+    </th>`;
+  });
+  h+=`</tr></thead><tbody>`;
+  rows.forEach(row=>{
+    h+=`<tr class="dtr">`;
+    hd.forEach((_,ci)=>{
+      if(hiddenCols.has(ci)){h+=`<td style="min-width:24px;max-width:24px;background:var(--bg3)"></td>`;return}
+      h+=`<td class="dtd" title="${esc(String(row[ci]||""))}">${esc(String(row[ci]||""))}</td>`;
+    });
+    h+=`</tr>`;
+  });
+  wrap.innerHTML=h+"</tbody></table>";
+
+  // Single delegated listener on the whole wrap
+  wrap.onclick=function(e){
+    const btn=e.target.closest("[data-action]");
+    if(!btn)return;
+    const action=btn.dataset.action;
+    const ci=parseInt(btn.dataset.ci);
+    if(action==="applyprop"){applyPropCI(ci)}
+    if(action==="deltag"){e.stopPropagation();delTag(ci)}
+    if(action==="hidecol"){
+      const k=cKey();if(!k)return;
+      if(!HCL[k])HCL[k]=new Set();HCL[k].add(ci);
+      renderSheet();ss("Column hidden. Click 'Restore' to bring it back.");
+    }
+    if(action==="delcol"){
+      const sh=cSh();if(!sh)return;
+      const name=sh.data[0]?.[ci]||`Column ${ci}`;
+      if(!confirm(`Permanently delete column "${name}"?\nThis removes it from the data.`))return;
+      // Remove from all rows
+      sh.data=sh.data.map(row=>{const r=[...row];r.splice(ci,1);return r});
+      // Shift tags
+      const k=cKey();
+      if(TAGS[k]){
+        const newTags={};
+        Object.entries(TAGS[k]).forEach(([idx,tag])=>{
+          const n=parseInt(idx);
+          if(n<ci)newTags[n]=tag;
+          else if(n>ci)newTags[n-1]=tag;
+        });
+        TAGS[k]=newTags;
+      }
+      // Shift hidden cols
+      if(HCL[k]){
+        const newH=new Set();
+        HCL[k].forEach(n=>{if(n<ci)newH.add(n);else if(n>ci)newH.add(n-1)});
+        HCL[k]=newH;
+      }
+      reAll();ss(`Column "${name}" deleted.`);
+    }
+    if(action==="showcol"){
+      const k=cKey();if(!k)return;
+      if(HCL[k])HCL[k].delete(ci);
+      renderSheet();
+    }
+    if(action==="aione"){aiOne(ci)}
+  };
+
+  const showAllBtn=document.getElementById("show-all-btn");
+  if(showAllBtn)showAllBtn.onclick=()=>{const k=cKey();if(!k)return;delete HCL[k];renderSheet();ss("All columns restored.")};
+}
+function applyPropCI(ci){applyProp(ci)}
+function applyProp(ci){if(!SEL){ss("Click a property on the left first.");return}setTag(ci,SEL);ss(`✓ Applied "${SEL.label}"`)}
+async function aiOne(ci){const sh=cSh();if(!sh)return;const btn=document.getElementById(`ai${ci}`);if(btn){btn.innerHTML=`<span class="spin"></span>`;btn.disabled=true}const hdr=String(sh.data[0]?.[ci]||`col${ci}`);const smp=sh.data.slice(1,6).map(r=>String(r[ci]||"")).filter(v=>v);try{const r=await fetch(`${API}/suggest`,{method:"POST",headers:getApiHeaders(),body:JSON.stringify({header:hdr,samples:smp})});if(!r.ok)throw new Error(await r.text());const p=await r.json();if(p.uri){setTag(ci,p);ss(`✓ Tagged "${hdr}" → ${p.label}`)}else ss(`No match for "${hdr}"`)}catch(err){ss("Suggest failed: "+err.message)}finally{if(btn){btn.textContent="✦ suggest";btn.disabled=false}}}
+function hideBanner(){document.getElementById("banner").style.display="none"}
+function hideReview(){document.getElementById("review").style.display="none";PEND=[]}
+async function suggestAll(){
+  hideBanner();
+  const rv=document.getElementById("review");
+  rv.style.display="flex";
+  const all=[];
+  const BATCH=25;
+
+  for(const w of WBS){
+    const wbCols=[];
+    w.sheets.forEach(s=>{
+      const key=tk(w.id,s.name);
+      const hd=s.data[0]||[];
+      hd.forEach((h,ci)=>{
+        if(TAGS[key]?.[ci])return;
+        const smp=s.data.slice(1,6).map(r=>String(r[ci]||"")).filter(v=>v);
+        wbCols.push({sheet:key,col_index:ci,header:String(h||`col${ci}`),samples:smp,_f:w.filename});
+      });
+    });
+    if(!wbCols.length)continue;
+
+    for(let i=0;i<wbCols.length;i+=BATCH){
+      const batch=wbCols.slice(i,i+BATCH);
+      document.getElementById("rvlist").innerHTML=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0">
+        <span class="spin"></span>
+        <span style="font-size:12px;color:var(--text2)">
+          Processing <strong>${esc(w.filename)}</strong> — columns ${i+1}–${Math.min(i+BATCH,wbCols.length)} of ${wbCols.length}
+        </span>
+      </div>`;
+      try{
+        const r=await fetch(`${API}/suggest-all`,{
+          method:"POST",headers:getApiHeaders(),
+          body:JSON.stringify({columns:batch.map(c=>({sheet:c.sheet,col_index:c.col_index,header:c.header,samples:c.samples}))})
+        });
+        if(!r.ok)throw new Error(await r.text());
+        const d=await r.json();
+        d.suggestions.filter(s=>s.uri).forEach(s=>{
+          const src=batch.find(c=>c.sheet===s.sheet&&c.col_index===s.col_index);
+          all.push({...s,_f:src?._f||s.sheet});
+        });
+      }catch(err){
+        ss(`Error on ${w.filename}: ${err.message}`);
+      }
+    }
+  }
+
+  if(!all.length){ss("No columns left to tag.");rv.style.display="none";return}
+  PEND=all;
+  renderReview();
+}
+function renderReview(){
+  const el = document.getElementById("rvlist");
+  document.getElementById("rvt").textContent = `${PEND.length} suggestions`;
+  if (!PEND.length) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--text2)">No confident matches found.</div>`;
+    return;
+  }
+  el.innerHTML = PEND.map((s, i) => {
+    const cls = s.class || s.domain || "";
+    const col = DC[cls] || "#888";
+    const f = WBS.length > 1 ? `<span class="rvf">${esc(s._f || "")}</span>` : "";
+    return `<div class="rvrow">
+      <div class="rvl">${f}
+        <span style="font-weight:500">${esc(s.header || "")}</span>
+        <span style="color:var(--text3)">→</span>
+        <span style="font-weight:500;color:${col}">${esc(s.label)}</span>
+        <span style="font-size:10px;font-family:var(--mono);opacity:.7;color:${col}">${esc(s.uri)}</span>
+      </div>
+      <div style="display:flex;gap:4px;flex-shrink:0">
+        <button class="btn" style="font-size:11px;padding:2px 8px;color:var(--green);border-color:#3fb95030" onclick="accOne(${i})">✓</button>
+        <button class="smbtn" onclick="rejOne(${i})">✕</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+function acceptAll(){
+  PEND.forEach(s => {
+    if (!TAGS[s.sheet]) TAGS[s.sheet] = {};
+    TAGS[s.sheet][s.col_index] = {
+      label: s.label, uri: s.uri, class: s.class || s.domain, range: s.range || "string"
+    };
+  });
+  PEND = [];
+  hideReview();
+  reAll();
+  ss("All suggestions applied.");
+}
+function accOne(i){
+  const s = PEND[i];
+  if (!TAGS[s.sheet]) TAGS[s.sheet] = {};
+  TAGS[s.sheet][s.col_index] = {
+    label: s.label, uri: s.uri, class: s.class || s.domain, range: s.range || "string"
+  };
+  PEND.splice(i, 1);
+  renderReview();
+  reAll();
+}
+function rejOne(i){PEND.splice(i,1);renderReview()}
+async function doSerialize(){ss("Serializing…");const{sheets,columnTags}=flat();try{const r=await fetch(`${API}/serialize`,{method:"POST",headers:getApiHeaders(),body:JSON.stringify({sheets,columnTags})});if(!r.ok)throw new Error(await r.text());const d=await r.json();TTL=d.turtle;document.getElementById("turtleout").textContent=d.turtle;document.getElementById("trict").textContent=`${d.triple_count} triples`;ss(`Generated ${d.triple_count} triples`)}catch(err){ss("Error: "+err.message)}}
+
+async function populateFeedOptions(){
+  try{
+    const r = await fetch(`${API}/export-formats`);
+    const d = await r.json();
+    const clsSel = document.getElementById("feed-class");
+    const fmtSel = document.getElementById("feed-format");
+    if (!clsSel || !fmtSel) return;
+    clsSel.innerHTML = (d.classes || []).map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+    fmtSel.innerHTML = (d.formats || []).map(f => `<option value="${esc(f.key)}">${esc(f.label)}</option>`).join("");
+    // Default to "Product" if present
+    if ((d.classes || []).includes("Product")) clsSel.value = "Product";
+  } catch(e) {
+    console.error("populateFeedOptions failed:", e);
+  }
+}
+
+async function downloadFeed(){
+  const cls = document.getElementById("feed-class").value;
+  const fmt = document.getElementById("feed-format").value;
+  const st = document.getElementById("feed-status");
+  if (!cls || !fmt) { st.textContent = "Pick a class and format."; return; }
+  const {sheets, columnTags} = flat();
+  st.textContent = "Building feed…";
+  try {
+    const r = await fetch(`${API}/export-feed`, {
+      method: "POST",
+      headers: {...getApiHeaders(), "Content-Type": "application/json"},
+      body: JSON.stringify({
+        sheets, columnTags, format: fmt, product_class: cls,
+        store_title: "My Store",
+      }),
+    });
+    if (!r.ok) {
+      const err = await r.text();
+      throw new Error(err);
+    }
+    const blob = await r.blob();
+    const cd = r.headers.get("Content-Disposition") || "";
+    const m = cd.match(/filename="?([^";]+)"?/);
+    const filename = m ? m[1] : `feed.${fmt === "csv" ? "csv" : fmt === "json-ld" ? "json" : "xml"}`;
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    st.textContent = `Downloaded ${filename}`;
+    setTimeout(()=>st.textContent="", 4000);
+  } catch(err) {
+    st.textContent = "Error: " + err.message;
+    ss("Feed export failed: " + err.message);
+  }
+}
+async function copyTurtle(){if(!TTL)await doSerialize();navigator.clipboard.writeText(TTL).then(()=>ss("Copied!"))}
+function dlTurtle(){if(!TTL){doSerialize().then(dlTurtle);return}const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([TTL],{type:"text/turtle"}));a.download="hxl_data.ttl";a.click()}
+async function exportHXL(){const w=cWb();const sh=cSh();if(!w||!sh){ss("No active sheet.");return}const key=cKey();const r=await fetch(`${API}/export-hxl`,{method:"POST",headers:getApiHeaders(),body:JSON.stringify({sheets:[sh],columnTags:{[sh.name]:TAGS[key]||{}},active_sheet:0})});if(!r.ok){ss("Export failed.");return}const blob=await r.blob();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`hxl_${w.filename}`;a.click();ss("Downloaded.")}
+async function exportAll(){let n=0;for(const w of WBS){for(const sh of w.sheets){const t=TAGS[tk(w.id,sh.name)]||{};if(!Object.keys(t).length)continue;try{const r=await fetch(`${API}/export-hxl`,{method:"POST",headers:getApiHeaders(),body:JSON.stringify({sheets:[sh],columnTags:{[sh.name]:t},active_sheet:0})});if(!r.ok)continue;const blob=await r.blob();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`hxl_${w.filename.replace(".xlsx","")}_${sh.name}.xlsx`;a.click();await new Promise(res=>setTimeout(res,400));n++}catch{}}}ss(`Exported ${n} sheet(s).`)}
+function saveSession(){if(!WBS.length){ss("No workbooks to save.");return}const s={v:1,WBS:WBS.map(w=>({id:w.id,filename:w.filename})),TAGS,WBN};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(s)],{type:"application/json"}));a.download=`hxl-session-${new Date().toISOString().slice(0,10)}.json`;a.click();ss("Session saved.")}
+function loadSession(e){const f=e.target.files[0];if(!f)return;e.target.value="";const r=new FileReader();r.onload=ev=>{try{const s=JSON.parse(ev.target.result);if(!s.v||!s.TAGS)throw new Error("Invalid session");TAGS=s.TAGS;WBN=s.WBN||WBN;const miss=s.WBS.filter(w=>!WBS.find(x=>x.id===w.id));if(miss.length)ss(`Tags restored. Re-upload: ${miss.map(w=>w.filename).join(", ")}`);else ss("Session restored.");reAll()}catch(err){ss("Could not load: "+err.message)}};r.readAsText(f)}
+async function runQuery(){
+  const q=document.getElementById("nl").value.trim();if(!q)return;
+  const btn=document.getElementById("runbtn");
+  btn.disabled=true;btn.innerHTML=`<span class="spin"></span> Running`;
+  document.getElementById("qres").innerHTML=`<div class="hint">Generating SPARQL…</div>`;
+  document.getElementById("export-results-btn").style.display="none";
+  document.getElementById("result-count").textContent="";
+  const{sheets,columnTags}=flat();
+  try{
+    const r=await fetch(`${API}/query`,{method:"POST",headers:getApiHeaders(),body:JSON.stringify({sheets,columnTags,question:q})});
+    if(!r.ok)throw new Error(await r.text());
+    const d=await r.json();
+    let h="";
+    if(d.sparql){const eq=esc(d.sparql);h+=`<div class="spblk"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div class="blbl">Generated SPARQL</div><button class="btn" style="font-size:11px;padding:2px 8px" onclick="navigator.clipboard.writeText(\`${eq}\`).then(()=>ss('Copied!'))">Copy</button></div><div class="spcode">${eq}</div></div>`}
+    if(d.summary)h+=`<div class="summ">${esc(d.summary)}</div>`;
+    if(d.columns&&d.rows&&d.rows.length){
+      h+=`<div class="rtwrap"><table class="rtbl"><thead><tr>${d.columns.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${d.rows.map(row=>`<tr>${row.map(v=>`<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+      // Store for export
+      lastQueryResult={columns:d.columns,rows:d.rows,question:q};
+      document.getElementById("export-results-btn").style.display="inline-flex";
+      document.getElementById("result-count").textContent=`${d.rows.length} row(s)`;
+    }else if(d.sparql){
+      h+=`<div class="hint">No results returned.</div>`;
+      lastQueryResult=null;
+    }
+    document.getElementById("qres").innerHTML=h||`<div class="hint">No response.</div>`;
+  }catch(err){
+    document.getElementById("qres").innerHTML=`<div class="summ" style="color:var(--red)">${esc(err.message)}</div>`;
+  }finally{btn.disabled=false;btn.textContent="Run Query"}
+}
+function runChecks(){
+  const el = document.getElementById("chkres");
+  const sd = [];
+  WBS.forEach(w => w.sheets.forEach(s => {
+    const key = tk(w.id, s.name);
+    const t = TAGS[key] || {};
+    if (Object.keys(t).length) sd.push({ file: w.filename, sheet: s.name, data: s.data, tags: t });
+  }));
+  if (!sd.length) {
+    el.innerHTML = `<div class="hint">No tagged sheets. Tag columns first.</div>`;
+    return;
+  }
+  const err = [], warn = [], ok = [];
+
+  sd.forEach(({ file, sheet, data, tags: t }) => {
+    Object.entries(t).forEach(([ci, tag]) => {
+      const vals = data.slice(1).map(r => String(r[parseInt(ci)] || "").trim());
+      const empty = vals.filter(v => !v).length;
+      const tot = vals.length;
+      if (empty === tot) err.push(`<strong>${sheet}</strong> (${file}): "<strong>${tag.label || tag.uri}</strong>" is tagged but entirely empty`);
+      else if (empty > tot * 0.3) warn.push(`<strong>${sheet}</strong> (${file}): "<strong>${tag.label || tag.uri}</strong>" has ${empty}/${tot} empty values`);
+      if (["integer", "float", "int"].includes(tag.range)) {
+        const bad = vals.filter(v => v && isNaN(parseFloat(v)));
+        if (bad.length) warn.push(`<strong>${sheet}</strong> (${file}): "<strong>${tag.label || tag.uri}</strong>" tagged as ${tag.range} but has ${bad.length} non-numeric value(s) e.g. <code>${esc(bad[0])}</code>`);
+      }
+    });
+  });
+
+  // Duplicate ID/code check — any property whose URI ends with Code/ID/Identifier
+  sd.forEach(({ file, sheet, data, tags: t }) => {
+    Object.entries(t)
+      .filter(([, tag]) => /(?:code|id|identifier|number)$/i.test(tag.uri || ""))
+      .forEach(([ci, tag]) => {
+        const vals = data.slice(1).map(r => String(r[parseInt(ci)] || "").trim()).filter(Boolean);
+        const dupes = [...new Set(vals.filter((v, i) => vals.indexOf(v) !== i))];
+        if (dupes.length) err.push(`<strong>${sheet}</strong> (${file}): "<strong>${tag.label || tag.uri}</strong>" has ${dupes.length} duplicate ID(s) e.g. <code>${esc(dupes[0])}</code>`);
+        else if (vals.length) ok.push(`No duplicate IDs in <strong>${tag.label || tag.uri}</strong> (${sheet})`);
+      });
+  });
+
+  let h = "";
+  if (err.length) h += `<div class="cgh"><div class="cghr">❌ Errors (${err.length})</div>${err.map(m => `<div class="ci err"><span>✕</span><span>${m}</span></div>`).join("")}</div>`;
+  if (warn.length) h += `<div class="cgh"><div class="cghr">⚠ Warnings (${warn.length})</div>${warn.map(m => `<div class="ci warn"><span>⚠</span><span>${m}</span></div>`).join("")}</div>`;
+  if (ok.length) h += `<div class="cgh"><div class="cghr">✓ Passed (${ok.length})</div>${ok.map(m => `<div class="ci ok"><span>✓</span><span>${m}</span></div>`).join("")}</div>`;
+  if (!err.length && !warn.length) h += `<div class="ci ok"><span>✓</span><span>All checks passed.</span></div>`;
+  el.innerHTML = h;
+}
+
+function acceptGDPR(){
+  localStorage.setItem('gdpr_accepted','1');
+  document.getElementById('gdpr-banner').style.display='none';
+}
+
+loadOntology();
+checkStatus();
+initAuth();
+// Show GDPR banner on first visit
+if(!localStorage.getItem('gdpr_accepted')){
+  document.getElementById('gdpr-banner').style.display='flex';
+}
+</script>
+</body>
+</html>

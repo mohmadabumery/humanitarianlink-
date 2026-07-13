@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reset Password — HumanitarianLink</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f1117;--bg2:#161b22;--border:#30363d;--text:#e6edf3;--text2:#8b949e;--green:#3fb950;--red:#f85149;--font:"IBM Plex Sans",sans-serif;--r:6px}
+body{min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font);display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:420px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:36px}
+h1{font-size:20px;font-weight:500;margin-bottom:8px;text-align:center}
+.sub{font-size:13px;color:var(--text2);text-align:center;margin-bottom:24px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--text2);margin-bottom:5px}
+.field input{width:100%;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);color:var(--text);font-size:13px;font-family:var(--font);outline:none}
+.field input:focus{border-color:#58a6ff}
+.btn{width:100%;padding:10px;background:var(--green);color:#000;border:none;border-radius:var(--r);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font);margin-top:6px}
+.btn:hover{opacity:.85}
+.msg{font-size:12px;margin-top:12px;text-align:center;min-height:18px}
+.msg.error{color:var(--red)}
+.msg.success{color:var(--green)}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🌐 Reset your password</h1>
+  <p class="sub">Enter a new password for your HumanitarianLink account.</p>
+
+  <div id="form">
+    <div class="field">
+      <label>New Password</label>
+      <input type="password" id="new-password" placeholder="At least 8 characters">
+    </div>
+    <div class="field">
+      <label>Confirm New Password</label>
+      <input type="password" id="confirm-password" placeholder="Type it again">
+    </div>
+    <button class="btn" onclick="doReset()">Update password</button>
+    <div class="msg" id="msg"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL='https://dnriilwaraxhxpebjlys.supabase.co'
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRucmlpbHdhcmF4aHhwZWJqbHlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI1NDcxODksImV4cCI6MjA5ODEyMzE4OX0.08kkGcuiqE_zcWVlLlMTlF7CHF4U7OpjM0O090UdOZs'
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)
+
+async function doReset(){
+  const p=document.getElementById('new-password').value
+  const c=document.getElementById('confirm-password').value
+  const m=document.getElementById('msg')
+  if(!p||!c){m.className='msg error';m.textContent='Fill in both fields.';return}
+  if(p.length<8){m.className='msg error';m.textContent='Password must be at least 8 characters.';return}
+  if(p!==c){m.className='msg error';m.textContent='Passwords do not match.';return}
+  const {error}=await sb.auth.updateUser({password:p})
+  if(error){m.className='msg error';m.textContent=error.message}
+  else{
+    m.className='msg success';m.textContent='Password updated! Redirecting to login...'
+    setTimeout(()=>{window.location.href='/login.html'},2000)
+  }
+}
+</script>
+</body>
+</html>

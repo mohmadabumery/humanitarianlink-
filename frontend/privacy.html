@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy — HumanitarianLink</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0f1117;color:#e6edf3;font-family:"IBM Plex Sans",sans-serif;font-size:14px;line-height:1.8;padding:40px 20px}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:24px;font-weight:500;margin-bottom:8px}
+.date{font-size:12px;color:#8b949e;margin-bottom:32px}
+h2{font-size:16px;font-weight:500;margin:28px 0 10px;color:#e6edf3}
+p{color:#8b949e;margin-bottom:14px}
+ul{color:#8b949e;padding-left:20px;margin-bottom:14px}
+ul li{margin-bottom:6px}
+a{color:#58a6ff}
+.highlight{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:14px 16px;margin-bottom:20px}
+.highlight p{margin:0;color:#e6edf3}
+.back{display:inline-block;margin-bottom:24px;color:#58a6ff;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" class="back">← Back to HumanitarianLink</a>
+  <h1>Privacy Policy</h1>
+  <p class="date">Last updated: June 2026</p>
+
+  <div class="highlight">
+    <p>🔒 <strong>Short version:</strong> Your data stays on your device. When you use AI features, only column headers and sample values are sent to Anthropic's API — never your full dataset. We do not store any of your files or personal data on our servers.</p>
+  </div>
+
+  <h2>1. Who we are</h2>
+  <p>HumanitarianLink is a data interoperability tool for humanitarian organizations, developed as part of research at the University of Twente, Netherlands. Contact: mohmadabumery@gmail.com</p>
+
+  <h2>2. What data we process</h2>
+  <p>HumanitarianLink processes the following data:</p>
+  <ul>
+    <li><strong>Account data:</strong> Your email address and organization name, stored securely in Supabase (EU region) for login purposes.</li>
+    <li><strong>Session data:</strong> Your column tags and session names, stored in Supabase so you can resume your work. This data does not include your actual Excel file contents.</li>
+    <li><strong>API key:</strong> Your Anthropic API key is stored only in your browser's localStorage. It is never sent to our servers.</li>
+    <li><strong>Excel data:</strong> Your Excel files are processed locally in your browser and on our server only during an active session. They are not stored persistently.</li>
+  </ul>
+
+  <h2>3. What gets sent to Anthropic</h2>
+  <p>When you use AI features (auto-suggest or natural language queries), the following is sent to Anthropic's API:</p>
+  <ul>
+    <li>Column header names from your spreadsheet</li>
+    <li>A small number of sample values (up to 5 per column) to help identify the data type</li>
+    <li>For queries: a summary of your tagged data schema and a limited excerpt of your data</li>
+  </ul>
+  <p>We do not send full datasets, personal names, ID numbers, or sensitive beneficiary information to Anthropic. You are in control of what gets tagged and queried.</p>
+  <p>Anthropic processes this data under their own privacy policy: <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a>. We have signed Anthropic's Data Processing Agreement.</p>
+
+  <h2>4. Legal basis (GDPR)</h2>
+  <p>We process your data under the following legal bases:</p>
+  <ul>
+    <li><strong>Contract:</strong> Account data is processed to provide the service you signed up for.</li>
+    <li><strong>Legitimate interest:</strong> Session data is stored to allow you to resume your work.</li>
+    <li><strong>Consent:</strong> When you use AI features, you consent to column headers and sample values being sent to Anthropic's API.</li>
+  </ul>
+
+  <h2>5. Data storage and transfers</h2>
+  <ul>
+    <li>Account and session data is stored in Supabase (EU West — Ireland region).</li>
+    <li>The application server runs on Railway (US West region). Excel files processed during a session are held in server memory only and discarded after the request completes.</li>
+    <li>When AI features are used, limited data is sent to Anthropic (US). This transfer is covered by Anthropic's compliance with the EU-US Data Privacy Framework.</li>
+  </ul>
+
+  <h2>6. Your rights</h2>
+  <p>Under GDPR you have the right to:</p>
+  <ul>
+    <li>Access the data we hold about you</li>
+    <li>Delete your account and all associated data</li>
+    <li>Export your session data</li>
+    <li>Object to processing</li>
+  </ul>
+  <p>To exercise any of these rights, email: <a href="mailto:mohmadabumery@gmail.com">mohmadabumery@gmail.com</a></p>
+
+  <h2>7. Cookies and local storage</h2>
+  <p>We use browser localStorage to store:</p>
+  <ul>
+    <li>Your Anthropic API key (never sent to our servers)</li>
+    <li>Your GDPR consent acknowledgement</li>
+  </ul>
+  <p>We do not use tracking cookies or analytics.</p>
+
+  <h2>8. Data retention</h2>
+  <ul>
+    <li>Account data: retained until you delete your account</li>
+    <li>Session data: retained until you delete the session</li>
+    <li>Excel files: never stored — processed in memory only</li>
+  </ul>
+
+  <h2>9. Changes to this policy</h2>
+  <p>We will notify registered users of any material changes to this policy by email.</p>
+</div>
+</body>
+</html>

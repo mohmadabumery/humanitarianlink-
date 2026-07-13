@@ -1,0 +1,15 @@
+# Environment variables — NEVER commit this
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.deps_ok
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
